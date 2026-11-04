@@ -1,6 +1,6 @@
 # Lees & Leaf API
 
-Backend for the Lees & Leaf storefront (`../leesandleef-ui`), a natural wine and olive oil shop. It serves the catalog, keeps carts and prices them on the server, takes orders and payments (Stripe or bank transfer), and sends order emails.
+Backend for the Lees & Leaf storefront (`../leesandleef-ui`), a natural wine and olive oil shop. It serves the catalog, prices carts kept in a signed cookie, runs customer accounts (JWT in a cookie), takes orders and payments (Stripe or bank transfer), and sends order emails.
 
 - Fastify 5, Zod 4 (`fastify-type-provider-zod`), PostgreSQL with Drizzle ORM, Stripe, Resend, TypeScript run by tsx, yarn 4 (`nodeLinker: node-modules`), Vitest, Biome.
 - ESM with `.ts` extensions in relative imports (`rewriteRelativeImportExtensions`). Use `import type` for types.
@@ -32,21 +32,23 @@ A request goes route → controller → service → repository. Each layer only 
 - `repositories/` holds Drizzle queries only, one file per table or aggregate, and returns domain objects through the mappers in `lib/mappers.ts`. Functions accept `DbOrTx` so services can pass a transaction.
 - `adapters/` puts outside services behind an interface (`PaymentProvider`, `Mailer`), with a real and a local implementation each. `server.ts` picks them from env, `buildApp()` takes them as options, and tests pass stubs. Never import the Stripe SDK or call Resend outside `adapters/`.
 - `plugins/` holds Fastify plugins. App-wide ones are wrapped in `fastify-plugin`.
-- `lib/` holds domain logic without I/O (pricing, cart options, search, quiz scoring, order view, email templates). The one exception is `cartSession.ts`, the cart cookie helper the controllers share.
+- `lib/` holds domain logic without I/O (pricing, cart options, search, quiz scoring, order view, email templates). The exceptions are `cartSession.ts` and `session.ts`, the cart and login cookie helpers the controllers share.
 - `utils/` holds generic helpers: `HttpError` and `notFound`/`unprocessable`/`conflict`, money, HTML escaping, `compact`.
 - `config/` holds `env.ts` (Zod-validated; add every new variable there and to `.env.example`) and `constants.ts` (shop rules and enums in UPPER_SNAKE_CASE).
-- `types/` holds shared types: `content.ts` (catalog shapes), `cart.ts`, `order.ts`, `deps.ts`, `http.ts`, `fastify.d.ts`.
+- `types/` holds shared types: `content.ts` (catalog shapes), `account.ts`, `cart.ts`, `order.ts`, `deps.ts`, `http.ts`, `fastify.d.ts`.
 
-File names carry their layer: `cart.controller.ts`, `cart.service.ts`, `cart.repository.ts`, `cart.dto.ts`, `stripe.adapter.ts`.
+File names carry their layer: `cart.controller.ts`, `cart.service.ts`, `order.repository.ts`, `cart.dto.ts`, `stripe.adapter.ts`.
 
 ## Conventions
 
 - Match the surrounding code. No comments: make code clear through naming and small functions.
-- Signal errors by throwing `HttpError` or its helpers from `utils/errors.ts`. The error handler turns them into `{ statusCode, error, message }` and hides 5xx details. Use 400 for invalid input (Zod does this), 404 when something doesn't exist, 409 for a conflict such as an empty cart, 422 when the input is valid but breaks a rule, 502 when a provider fails.
+- Signal errors by throwing `HttpError` or its helpers from `utils/errors.ts`. The error handler turns them into `{ statusCode, error, message }` and hides 5xx details. Use 400 for invalid input (Zod does this), 401 when a login is missing or wrong, 404 when something doesn't exist, 409 for a conflict such as an empty cart, 422 when the input is valid but breaks a rule, 502 when a provider fails.
 - Catalog responses have the same shape as the UI's `src/data/` types (no `path`; the UI adds it), so the frontend can swap imports for fetches. Don't rename fields without changing the UI too.
 - Money is euros as `number`, rounded with `roundMoney()`. Stripe gets cents through `toCents()`. Format with `formatMoney()`.
 - Pricing rules live in `config/constants.ts` and `lib/pricing.ts` and must match the UI's `src/lib/pricing.ts`: −10% on 6+ wine bottles, promo codes from the `promo_codes` table on goods after that discount, free shipping from €120 of goods (otherwise €9.90), Club plans excluded from discounts and shipping, one Club plan per cart, at most 24 of a product.
-- Never trust client totals: orders re-price the cart on the server. Card orders stay `pending_payment` and keep the cart until the Stripe webhook (or `GET /orders/:id`) confirms the amount. Webhook handling must be idempotent. Orders are only readable from the cart that placed them.
+- The cart lives only in the signed `cart` cookie (`lib/cartSession.ts`), never in the database, and isn't tied to an account. Services take a `CartState` and return the new state with the priced cart; controllers write it back with `sendCart`/`writeCart`.
+- Accounts: `@fastify/jwt` with the token in the httpOnly `session` cookie, passwords hashed with scrypt (`lib/password.ts`). Protect routes with `app.addHook('onRequest', app.authenticate)` and read the user with `currentUserId(req)`. Checkout, orders and `/account` require a login; catalog and cart stay public.
+- Never trust client totals: orders re-price the cart on the server. Card orders stay `pending_payment` and keep the cart until the Stripe webhook (or `GET /orders/:id`) confirms the amount; the cart cookie remembers the pending order and empties itself on the next cart request once it's paid. Webhook handling must be idempotent. Orders are only readable by the account that placed them.
 
 ## Database
 

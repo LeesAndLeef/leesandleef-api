@@ -3,7 +3,7 @@ import fp from 'fastify-plugin'
 
 export const cookie = fp(
   async (app) => {
-    await app.register(fastifyCookie)
+    await app.register(fastifyCookie, { secret: app.config.cookieSecret })
   },
-  { name: 'cookie' },
+  { name: 'cookie', dependencies: ['dependencies'] },
 )

@@ -38,7 +38,6 @@ export const totalsSchema = z.object({
 })
 
 export const cartSchema = z.object({
-  id: z.uuid().nullable(),
   lines: z.array(pricedLineSchema),
   saved: z.array(pricedLineSchema),
   promo: z.string().nullable(),

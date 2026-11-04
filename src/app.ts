@@ -1,6 +1,7 @@
 import Fastify, { type FastifyServerOptions } from 'fastify'
 import { serializerCompiler, validatorCompiler, type ZodTypeProvider } from 'fastify-type-provider-zod'
 import { assets } from './plugins/assets.ts'
+import { auth } from './plugins/auth.ts'
 import { cookie } from './plugins/cookie.ts'
 import { cors } from './plugins/cors.ts'
 import { type DependenciesOptions, dependencies } from './plugins/dependencies.ts'
@@ -22,6 +23,7 @@ export async function buildApp({ corsOrigin, logger = false, ...deps }: AppOptio
   await app.register(errorHandler)
   await app.register(cors, { origin: corsOrigin })
   await app.register(cookie)
+  await app.register(auth)
   await app.register(assets)
   await app.register(swagger)
   await app.register(routes)
