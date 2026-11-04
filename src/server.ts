@@ -10,6 +10,8 @@ const app = await buildApp({
   corsOrigin: env.CORS_ORIGIN,
   config: {
     secureCookies: env.NODE_ENV === 'production',
+    jwtSecret: env.JWT_SECRET,
+    cookieSecret: env.COOKIE_SECRET,
     bank:
       env.BANK_IBAN && env.BANK_BENEFICIARY
         ? { beneficiary: env.BANK_BENEFICIARY, iban: env.BANK_IBAN, ...(env.BANK_BIC && { bic: env.BANK_BIC }) }

@@ -5,21 +5,32 @@ import type { OrderView } from '../lib/orderView.ts'
 import { shippingOptions } from '../lib/pricing.ts'
 import * as repo from '../repositories/order.repository.ts'
 import { findSite } from '../repositories/site.repository.ts'
+import { updateUser } from '../repositories/user.repository.ts'
+import type { CartState } from '../types/cart.ts'
 import type { Deps } from '../types/deps.ts'
 import type { PaymentInstructions } from '../types/order.ts'
 import { conflict, HttpError, notFound, unprocessable } from '../utils/errors.ts'
 import { roundMoney, toCents } from '../utils/money.ts'
-import { clearCart, loadPricedCart } from './cart.service.ts'
+import { addressColumns, requireUser } from './account.service.ts'
+import { emptied, priceCart, settleCart } from './cart.service.ts'
 import { sendOrderConfirmation } from './email.service.ts'
 import { subscribe } from './newsletter.service.ts'
-import { loadOrderView } from './orderView.service.ts'
+import { loadOrderView, loadOrderViews } from './orderView.service.ts'
 import { confirmPayment, syncPayment } from './payment.service.ts'
+
+export interface PlacedOrder {
+  order: OrderView
+  payment: PaymentInstructions
+  cart: CartState
+}
 
 const normalizeCountry = (country: string) => country.replace(/^the /i, '').toLowerCase()
 
-function createOrder(db: Db, cartId: string, input: PlaceOrderInput, bankEnabled: boolean) {
+function createOrder(db: Db, userId: string, state: CartState, input: PlaceOrderInput, bankEnabled: boolean) {
   return db.transaction(async (tx) => {
-    const cart = await loadPricedCart(tx, cartId)
+    const user = await requireUser(tx, userId)
+    const settled = await settleCart(tx, state)
+    const cart = await priceCart(tx, settled)
     if (cart.lines.length === 0) throw conflict('Your cart is empty')
     if (input.pay === 'bank' && !bankEnabled) throw unprocessable('Bank transfer isn’t available right now')
 
@@ -34,23 +45,20 @@ function createOrder(db: Db, cartId: string, input: PlaceOrderInput, bankEnabled
     const delivery = shippingOptions(cart.totals).find((option) => option.id === input.ship)
     if (!delivery) throw unprocessable(`Unknown delivery option ${input.ship}`)
     const total = roundMoney(cart.totals.total - cart.totals.shipping + delivery.price)
+    const phone = input.details.phone || null
 
     const order = await repo.insertOrder(
       tx,
       {
         number: newOrderNumber(),
         status: input.pay === 'bank' ? 'awaiting_transfer' : 'pending_payment',
-        cartId,
+        userId,
         firstName: input.details.first,
         lastName: input.details.last,
-        email: input.details.email.toLowerCase(),
-        phone: input.details.phone || null,
+        email: user.email,
+        phone,
         shipMethod: input.ship,
-        street: address?.street ?? null,
-        postcode: address?.postcode ?? null,
-        city: address?.city ?? null,
-        country: address?.country ?? null,
-        door: address?.door || null,
+        ...addressColumns(address ?? null),
         payMethod: input.pay,
         giftNote: cart.giftNote,
         promo: cart.promo,
@@ -73,25 +81,32 @@ function createOrder(db: Db, cartId: string, input: PlaceOrderInput, bankEnabled
       })),
     )
 
+    await updateUser(tx, userId, {
+      firstName: input.details.first,
+      lastName: input.details.last,
+      ...(phone && { phone }),
+      ...(address && addressColumns(address)),
+    })
     if (input.details.news) await subscribe(tx, order.email, 'checkout')
-    if (order.status === 'awaiting_transfer') await clearCart(tx, cartId)
-    return order
+    return { order, state: settled }
   })
 }
 
 export async function placeOrder(
   deps: Deps,
-  cartId: string,
+  userId: string,
+  cartState: CartState,
   input: PlaceOrderInput,
-): Promise<{ order: OrderView; payment: PaymentInstructions }> {
+): Promise<PlacedOrder> {
   const { db, payments, config } = deps
-  const order = await createOrder(db, cartId, input, config.bank !== null)
+  const { order, state } = await createOrder(db, userId, cartState, input, config.bank !== null)
 
   if (order.status === 'awaiting_transfer' && config.bank) {
     await sendOrderConfirmation(deps, order.id)
     return {
       order: await loadOrderView(db, order.id),
       payment: { method: 'bank', ...config.bank, reference: order.number, amount: order.total },
+      cart: emptied(state),
     }
   }
 
@@ -108,18 +123,23 @@ export async function placeOrder(
 
   if (payment.status === 'succeeded') {
     await confirmPayment(deps, payment.id, amountCents)
-    return { order: await loadOrderView(db, order.id), payment: { method: 'none' } }
+    return { order: await loadOrderView(db, order.id), payment: { method: 'none' }, cart: emptied(state) }
   }
   if (!payment.clientSecret) throw new HttpError(502, 'Payment provider returned no client secret')
   return {
     order: await loadOrderView(db, order.id),
     payment: { method: 'stripe', clientSecret: payment.clientSecret },
+    cart: { ...state, pendingOrderId: order.id },
   }
 }
 
-export async function getOrderForCart(deps: Deps, cartId: string | null, orderId: string) {
+export async function listOrders(db: Db, userId: string) {
+  return loadOrderViews(db, await repo.findOrdersByUser(db, userId))
+}
+
+export async function getOrderForUser(deps: Deps, userId: string, orderId: string) {
   const order = await repo.findOrder(deps.db, orderId)
-  if (!order || !cartId || order.cartId !== cartId) throw notFound('Order not found')
+  if (!order || order.userId !== userId) throw notFound('Order not found')
   if (order.status === 'pending_payment' && order.paymentIntentId) await syncPayment(deps, order.paymentIntentId)
   return loadOrderView(deps.db, orderId)
 }

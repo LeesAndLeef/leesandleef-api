@@ -15,6 +15,20 @@
       "when": 1793629839018,
       "tag": "0001_payments",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793808343895,
+      "tag": "0002_cookie_carts",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793808362306,
+      "tag": "0003_users",
+      "breakpoints": true
     }
   ]
 }

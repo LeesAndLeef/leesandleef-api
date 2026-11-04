@@ -34,8 +34,15 @@ export interface Totals {
   total: number
 }
 
+export interface CartState {
+  lines: CartLine[]
+  saved: CartLine[]
+  promo: string | null
+  giftNote: string | null
+  pendingOrderId: string | null
+}
+
 export interface PricedCart {
-  id: string | null
   lines: PricedLine[]
   saved: PricedLine[]
   promo: string | null

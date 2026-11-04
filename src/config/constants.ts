@@ -24,6 +24,7 @@ export const SATURDAY_SURCHARGE = 9
 
 export const MAX_LINE_QTY = 24
 export const MAX_CLUB_QTY = 1
+export const MAX_CART_LINES = 20
 
 export const SHIP_METHODS = ['std', 'sat', 'pick'] as const
 export const PAY_METHODS = ['card', 'wallet', 'bank'] as const
@@ -37,8 +38,12 @@ export const SHIP_DETAILS = {
 
 export const PAY_NAMES = { card: 'Card', wallet: 'Apple / Google Pay', bank: 'Bank transfer' } as const
 
-export const CART_COOKIE = 'cart_id'
-export const CART_COOKIE_MAX_AGE = 60 * 60 * 24 * 30
+export const CART_COOKIE = 'cart'
+export const SESSION_COOKIE = 'session'
+export const COOKIE_MAX_AGE = 60 * 60 * 24 * 30
+export const MAX_COOKIE_LENGTH = 3800
+
+export const PASSWORD_MIN_LENGTH = 8
 
 export const ORDER_NUMBER_PREFIX = 'LL-'
 

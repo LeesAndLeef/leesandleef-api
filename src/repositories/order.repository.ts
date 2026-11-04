@@ -1,4 +1,4 @@
-import { and, asc, eq, isNull } from 'drizzle-orm'
+import { and, asc, desc, eq, inArray, isNull } from 'drizzle-orm'
 import type { DbOrTx } from '../db/client.ts'
 import * as t from '../db/schema.ts'
 
@@ -24,8 +24,17 @@ export async function findOrderByPayment(db: DbOrTx, paymentIntentId: string) {
   return row
 }
 
-export function findOrderLines(db: DbOrTx, orderId: string) {
-  return db.select().from(t.orderLines).where(eq(t.orderLines.orderId, orderId)).orderBy(asc(t.orderLines.position))
+export function findOrdersByUser(db: DbOrTx, userId: string) {
+  return db.select().from(t.orders).where(eq(t.orders.userId, userId)).orderBy(desc(t.orders.createdAt))
+}
+
+export function findOrderLines(db: DbOrTx, orderIds: string[]) {
+  if (orderIds.length === 0) return Promise.resolve([])
+  return db
+    .select()
+    .from(t.orderLines)
+    .where(inArray(t.orderLines.orderId, orderIds))
+    .orderBy(asc(t.orderLines.position))
 }
 
 export async function setPaymentIntent(db: DbOrTx, id: string, paymentIntentId: string) {

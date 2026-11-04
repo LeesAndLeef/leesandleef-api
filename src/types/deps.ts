@@ -11,6 +11,8 @@ export interface BankDetails {
 
 export interface AppConfig {
   secureCookies: boolean
+  jwtSecret: string
+  cookieSecret: string
   bank: BankDetails | null
 }
 

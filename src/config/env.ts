@@ -13,6 +13,8 @@ const schema = z
       .string()
       .default('http://localhost:5173')
       .transform((value) => value.split(',').map((origin) => origin.trim())),
+    JWT_SECRET: z.string().min(32),
+    COOKIE_SECRET: z.string().min(32),
     STRIPE_SECRET_KEY: optional(z.string().startsWith('sk_')),
     STRIPE_WEBHOOK_SECRET: optional(z.string().startsWith('whsec_')),
     RESEND_API_KEY: optional(z.string().startsWith('re_')),

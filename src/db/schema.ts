@@ -1,6 +1,7 @@
 import {
   boolean,
   date,
+  index,
   integer,
   jsonb,
   numeric,
@@ -19,7 +20,6 @@ const createdAt = () => timestamp({ withTimezone: true }).notNull().defaultNow()
 
 export const wineType = pgEnum('wine_type', WINE_TYPES)
 export const oilLevel = pgEnum('oil_level', OIL_LEVELS)
-export const cartList = pgEnum('cart_list', ['cart', 'saved'])
 export const shipMethod = pgEnum('ship_method', SHIP_METHODS)
 export const payMethod = pgEnum('pay_method', PAY_METHODS)
 export const orderStatus = pgEnum('order_status', ORDER_STATUSES)
@@ -147,61 +147,53 @@ export const promoCodes = pgTable('promo_codes', {
   active: boolean().notNull().default(true),
 })
 
-export const carts = pgTable('carts', {
+export const users = pgTable('users', {
   id: uuid().primaryKey().defaultRandom(),
-  promo: text().references(() => promoCodes.code, { onDelete: 'set null' }),
-  giftNote: text(),
-  createdAt: createdAt(),
-  updatedAt: timestamp({ withTimezone: true })
-    .notNull()
-    .defaultNow()
-    .$onUpdate(() => new Date()),
-})
-
-export const cartLines = pgTable(
-  'cart_lines',
-  {
-    cartId: uuid()
-      .notNull()
-      .references(() => carts.id, { onDelete: 'cascade' }),
-    list: cartList().notNull(),
-    key: text().notNull(),
-    itemId: text().notNull(),
-    option: text(),
-    qty: integer().notNull(),
-    addedAt: createdAt(),
-  },
-  (t) => [primaryKey({ columns: [t.cartId, t.list, t.key] })],
-)
-
-export const orders = pgTable('orders', {
-  id: uuid().primaryKey().defaultRandom(),
-  number: text().notNull().unique(),
-  status: orderStatus().notNull(),
-  cartId: uuid().references(() => carts.id, { onDelete: 'set null' }),
-  paymentIntentId: text().unique(),
+  email: text().notNull().unique(),
+  passwordHash: text().notNull(),
   firstName: text().notNull(),
   lastName: text().notNull(),
-  email: text().notNull(),
   phone: text(),
-  shipMethod: shipMethod().notNull(),
   street: text(),
   postcode: text(),
   city: text(),
   country: text(),
   door: text(),
-  payMethod: payMethod().notNull(),
-  giftNote: text(),
-  promo: text(),
-  subtotal: money().notNull(),
-  mixDiscount: money().notNull(),
-  promoDiscount: money().notNull(),
-  shipping: money().notNull(),
-  total: money().notNull(),
   createdAt: createdAt(),
-  paidAt: timestamp({ withTimezone: true }),
-  confirmationSentAt: timestamp({ withTimezone: true }),
 })
+
+export const orders = pgTable(
+  'orders',
+  {
+    id: uuid().primaryKey().defaultRandom(),
+    number: text().notNull().unique(),
+    status: orderStatus().notNull(),
+    userId: uuid().references(() => users.id, { onDelete: 'set null' }),
+    paymentIntentId: text().unique(),
+    firstName: text().notNull(),
+    lastName: text().notNull(),
+    email: text().notNull(),
+    phone: text(),
+    shipMethod: shipMethod().notNull(),
+    street: text(),
+    postcode: text(),
+    city: text(),
+    country: text(),
+    door: text(),
+    payMethod: payMethod().notNull(),
+    giftNote: text(),
+    promo: text(),
+    subtotal: money().notNull(),
+    mixDiscount: money().notNull(),
+    promoDiscount: money().notNull(),
+    shipping: money().notNull(),
+    total: money().notNull(),
+    createdAt: createdAt(),
+    paidAt: timestamp({ withTimezone: true }),
+    confirmationSentAt: timestamp({ withTimezone: true }),
+  },
+  (t) => [index().on(t.userId)],
+)
 
 export const orderLines = pgTable(
   'order_lines',

@@ -1,4 +1,5 @@
 import type * as t from '../db/schema.ts'
+import type { Account } from '../types/account.ts'
 import type { Article, ClubPlan, Grower, Oil, Wine } from '../types/content.ts'
 import { compact } from '../utils/compact.ts'
 
@@ -35,4 +36,16 @@ export function toGrower({ position: _, ...row }: Row<typeof t.growers>): Grower
 
 export function toArticle(row: Row<typeof t.articles>): Article {
   return row
+}
+
+export function toAccount(row: Row<typeof t.users>): Account {
+  const { street, postcode, city, country, door } = row
+  return {
+    id: row.id,
+    email: row.email,
+    firstName: row.firstName,
+    lastName: row.lastName,
+    phone: row.phone,
+    address: street && postcode && city && country ? { street, postcode, city, country, ...(door && { door }) } : null,
+  }
 }

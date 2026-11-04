@@ -1,30 +1,20 @@
 import type { FastifySchema } from 'fastify'
 import { z } from 'zod'
 import { ORDER_STATUSES, PAY_METHODS, SHIP_METHODS } from '../config/constants.ts'
+import { addressSchema, phone, text } from './account.dto.ts'
 import { pricedLineSchema } from './cart.dto.ts'
-
-const text = (max = 120) => z.string().trim().min(1).max(max)
 
 export const placeOrderBody = z
   .object({
     details: z.object({
       first: text(),
       last: text(),
-      email: z.email().max(254),
-      phone: z.string().trim().max(40).optional(),
+      phone: phone.optional(),
       age: z.literal(true, { error: 'You must confirm you are 18 or older' }),
       news: z.boolean().default(false),
     }),
     ship: z.enum(SHIP_METHODS),
-    address: z
-      .object({
-        street: text(200),
-        postcode: text(20),
-        city: text(),
-        country: text(),
-        door: z.string().trim().max(200).optional(),
-      })
-      .optional(),
+    address: addressSchema.optional(),
     pay: z.enum(PAY_METHODS),
   })
   .refine((body) => body.ship === 'pick' || body.address, {
@@ -75,17 +65,28 @@ export const paymentSchema = z.discriminatedUnion('method', [
 
 export const placedOrderSchema = z.object({ order: orderSchema, payment: paymentSchema })
 
+const security = [{ cookieAuth: [] }]
+
 export const placeOrderSchema = {
   tags: ['orders'],
+  security,
   summary:
-    'Place an order from the current cart. Card and wallet orders return a Stripe client secret and keep the cart until payment succeeds; bank orders return transfer details',
+    'Place an order from the cart cookie (login required). Card and wallet orders return a Stripe client secret and keep the cart until payment succeeds; bank orders return transfer details',
   body: placeOrderBody,
   response: { 201: placedOrderSchema },
 } satisfies FastifySchema
 
+export const listOrdersSchema = {
+  tags: ['orders'],
+  security,
+  summary: 'The logged-in customer’s orders, newest first',
+  response: { 200: z.array(orderSchema) },
+} satisfies FastifySchema
+
 export const getOrderSchema = {
   tags: ['orders'],
-  summary: 'An order placed from the current cart. Pending card payments are re-checked with the provider',
+  security,
+  summary: 'One of the logged-in customer’s orders. Pending card payments are re-checked with the provider',
   params: z.object({ id: z.uuid() }),
   response: { 200: orderSchema },
 } satisfies FastifySchema

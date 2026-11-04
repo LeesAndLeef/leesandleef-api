@@ -1,7 +1,6 @@
 import { findOrderByPayment, transition } from '../repositories/order.repository.ts'
 import type { Deps } from '../types/deps.ts'
 import { toCents } from '../utils/money.ts'
-import { clearCart } from './cart.service.ts'
 import { sendOrderConfirmation } from './email.service.ts'
 
 export async function confirmPayment(deps: Deps, paymentId: string, amountCents: number) {
@@ -10,11 +9,7 @@ export async function confirmPayment(deps: Deps, paymentId: string, amountCents:
   if (amountCents !== toCents(order.total)) {
     return deps.log.error({ paymentId, amountCents, orderId: order.id }, 'Payment amount does not match order total')
   }
-  const paid = await deps.db.transaction(async (tx) => {
-    const updated = await transition(tx, order.id, 'pending_payment', 'paid')
-    if (updated?.cartId) await clearCart(tx, updated.cartId)
-    return updated
-  })
+  const paid = await transition(deps.db, order.id, 'pending_payment', 'paid')
   if (paid) await sendOrderConfirmation(deps, order.id)
 }
 

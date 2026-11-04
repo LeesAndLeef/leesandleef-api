@@ -1,5 +1,7 @@
 import type { FastifyPluginAsync } from 'fastify'
+import { accountRoutes } from './api/account/index.ts'
 import { articleRoutes } from './api/articles/index.ts'
+import { authRoutes } from './api/auth/index.ts'
 import { cartRoutes } from './api/cart/index.ts'
 import { clubPlanRoutes } from './api/club-plans/index.ts'
 import { growerRoutes } from './api/growers/index.ts'
@@ -25,6 +27,8 @@ const apiRoutes: [string, FastifyPluginAsync][] = [
   ['/search', searchRoutes],
   ['/quiz', quizRoutes],
   ['/cart', cartRoutes],
+  ['/auth', authRoutes],
+  ['/account', accountRoutes],
   ['/orders', orderRoutes],
   ['/newsletter', newsletterRoutes],
 ]
