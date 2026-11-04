@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480">
+<defs><pattern id="h" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1" height="14" fill="#1B1D14" opacity=".07"></rect></pattern></defs>
+<rect width="640" height="480" fill="#EFECE3"></rect>
+<circle cx="320" cy="230" r="156" opacity=".55" fill="#E3DFD2"></circle>
+<path d="M0 352 Q120 330 240 346 Q420 370 640 348 L640 480 L0 480 Z" fill="#A9AD7A"></path>
+<g transform="translate(0 0) scale(1.0)">
+<path d="M150 480 Q160 330 320 325 Q480 330 490 480 Z" fill="#262A16"></path>
+<rect x="297" y="285" width="46" height="46" fill="#262A16"></rect>
+<ellipse cx="320" cy="232" rx="56" ry="68" fill="#262A16"></ellipse>
+<ellipse cx="320" cy="176" rx="106" ry="13" fill="#262A16"></ellipse><rect x="272" y="134" width="96" height="44" rx="6" fill="#262A16"></rect><rect x="272" y="164" width="96" height="9" fill="#6E1C2B"></rect>
+<path d="M282 326 L320 386 L358 326 Z" fill="#C9C7BC"></path>
+</g>
+<rect x="330" y="432" width="200" height="8" fill="#6E1C2B"></rect>
+<rect width="640" height="480" fill="url(#h)"></rect>
+</svg>

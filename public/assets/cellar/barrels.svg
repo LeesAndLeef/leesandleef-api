@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+<rect width="640" height="400" fill="#1B1D14"></rect>
+<path d="M60 400 L60 150 Q60 30 320 30 Q580 30 580 150 L580 400 Z" fill="#262A16"></path>
+<g stroke="#1B1D14" stroke-width="3"><line x1="60" y1="120" x2="580" y2="120"></line><line x1="60" y1="200" x2="580" y2="200"></line><line x1="200" y1="30" x2="200" y2="120"></line><line x1="440" y1="40" x2="440" y2="120"></line><line x1="320" y1="120" x2="320" y2="200"></line><line x1="140" y1="120" x2="140" y2="200"></line><line x1="500" y1="120" x2="500" y2="200"></line></g>
+<rect x="0" y="352" width="640" height="48" fill="#3F4622"></rect>
+<g>
+<circle cx="190" cy="270" r="86" fill="#7A5A3E"></circle><circle cx="190" cy="270" r="86" fill="none" stroke="#1B1D14" stroke-width="10"></circle><circle cx="190" cy="270" r="62" fill="none" stroke="#5E4430" stroke-width="4"></circle><circle cx="190" cy="270" r="36" fill="none" stroke="#5E4430" stroke-width="4"></circle><rect x="180" y="296" width="20" height="20" fill="#6E1C2B"></rect>
+<circle cx="450" cy="270" r="86" fill="#8A6848"></circle><circle cx="450" cy="270" r="86" fill="none" stroke="#1B1D14" stroke-width="10"></circle><circle cx="450" cy="270" r="62" fill="none" stroke="#6A4E36" stroke-width="4"></circle><circle cx="450" cy="270" r="36" fill="none" stroke="#6A4E36" stroke-width="4"></circle><rect x="440" y="296" width="20" height="20" fill="#6E1C2B"></rect>
+<circle cx="320" cy="140" r="70" fill="#6E5038"></circle><circle cx="320" cy="140" r="70" fill="none" stroke="#1B1D14" stroke-width="9"></circle><circle cx="320" cy="140" r="48" fill="none" stroke="#54402C" stroke-width="4"></circle>
+</g>
+<rect x="150" y="248" width="80" height="22" fill="#EFECE3"></rect><rect x="158" y="256" width="44" height="4" fill="#1B1D14"></rect>
+<rect x="410" y="248" width="80" height="22" fill="#EFECE3"></rect><rect x="418" y="256" width="52" height="4" fill="#1B1D14"></rect>
+<g fill="#A9AD7A"><rect x="120" y="356" width="400" height="8"></rect></g>
+<rect x="560" y="300" width="18" height="52" fill="#A9AD7A" opacity=".5"></rect><rect x="556" y="292" width="26" height="10" fill="#A9AD7A" opacity=".5"></rect>
+</svg>

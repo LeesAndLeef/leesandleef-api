@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+<defs><pattern id="h" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1" height="14" fill="#1B1D14" opacity=".07"></rect></pattern></defs>
+<rect width="640" height="400" fill="#A9AD7A"></rect>
+<circle cx="250" cy="150" r="120" fill="#D9D9C0" opacity=".55"></circle>
+<rect x="470" y="40" width="110" height="110" fill="#6E1C2B"></rect>
+<g fill="#262A16">
+<path d="M130 400 Q138 268 250 264 Q362 268 370 400 Z"></path>
+<rect x="234" y="226" width="32" height="42"></rect>
+<ellipse cx="250" cy="186" rx="40" ry="48"></ellipse>
+<circle cx="272" cy="142" r="19"></circle>
+</g>
+<path d="M226 266 L250 306 L274 266 Z" fill="#6E1C2B"></path>
+<g fill="#262A16"><path d="M330 300 L420 190 L440 204 L350 316 Z"></path></g>
+<rect x="414" y="150" width="12" height="190" fill="#1B1D14" transform="rotate(14 420 245)"></rect>
+<rect x="380" y="300" width="250" height="100" fill="#7A5A3E"></rect>
+<rect x="380" y="300" width="250" height="100" fill="none" stroke="#1B1D14" stroke-width="6"></rect>
+<rect x="380" y="330" width="250" height="8" fill="#1B1D14" opacity=".5"></rect><rect x="380" y="370" width="250" height="8" fill="#1B1D14" opacity=".5"></rect>
+<rect x="386" y="290" width="238" height="16" fill="#4E1220"></rect>
+<g fill="#6E1C2B"><rect x="400" y="282" width="12" height="10"></rect><rect x="430" y="284" width="10" height="8"></rect><rect x="470" y="281" width="12" height="10"></rect><rect x="520" y="283" width="10" height="9"></rect><rect x="560" y="282" width="12" height="10"></rect><rect x="595" y="284" width="10" height="8"></rect></g>
+<rect x="0" y="392" width="640" height="8" fill="#3F4622"></rect>
+<rect width="640" height="400" fill="url(#h)"></rect>
+</svg>

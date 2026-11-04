@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+<defs><pattern id="h" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1" height="14" fill="#EFECE3" opacity=".05"></rect></pattern></defs>
+<rect width="800" height="500" fill="#6E1C2B"></rect>
+<rect x="40" y="40" width="180" height="180" fill="#3F4622"></rect>
+<rect x="600" y="300" width="130" height="130" fill="#D9A93A" opacity="0"></rect>
+<ellipse cx="400" cy="420" rx="330" ry="56" fill="#1B1D14" opacity=".35"></ellipse>
+<rect x="110" y="330" width="580" height="90" fill="#8D8C80"></rect><rect x="110" y="330" width="580" height="14" fill="#E3DFD2" opacity=".5"></rect>
+<circle cx="610" cy="250" r="96" fill="#A8A190"></circle><circle cx="610" cy="250" r="22" fill="#5E5D53"></circle><rect x="600" y="140" width="20" height="110" fill="#5E5D53"></rect>
+<rect x="160.0" y="170.0" width="100.0" height="170.0" fill="#6B733A"></rect><rect x="192.0" y="148.0" width="36.0" height="22.0" fill="#1B1D14"></rect><rect x="172.0" y="218.0" width="76.0" height="76.0" fill="#EFECE3"></rect><rect x="180.0" y="228.0" width="50.0" height="5.0" fill="#1B1D14"></rect><rect x="180.0" y="240.0" width="34.0" height="3.0" fill="#3F4622"></rect><rect x="180.0" y="276.0" width="16.0" height="10.0" fill="#1B1D14"></rect><rect x="298.3333333333333" y="195.0" width="83.33333333333334" height="141.66666666666669" fill="#C9C48A"></rect><rect x="325.0" y="176.66666666666666" width="30.0" height="18.333333333333336" fill="#1B1D14"></rect><rect x="308.3333333333333" y="235.0" width="63.333333333333336" height="63.333333333333336" fill="#EFECE3"></rect><rect x="315.0" y="243.33333333333334" width="41.66666666666667" height="4.166666666666667" fill="#3F4622"></rect><rect x="315.0" y="253.33333333333334" width="28.333333333333336" height="2.5" fill="#3F4622"></rect><rect x="315.0" y="283.33333333333337" width="13.333333333333334" height="8.333333333333334" fill="#3F4622"></rect><g transform="rotate(0 447.5 205.0)"><path d="M440.0 80 h15.0 v65.0 l17.25 22.5 v162.5 h-64.5 v-162.5 l17.25 -22.5 z" fill="#3F4622"></path><rect x="440.0" y="80" width="15.0" height="25.0" fill="#1B1D14"></rect><rect x="427.25" y="210.0" width="40.5" height="70.0" fill="#EFECE3"></rect></g>
+<rect y="420" width="800" height="80" fill="#4E1220"></rect>
+<rect width="800" height="500" fill="url(#h)"></rect>
+</svg>
