@@ -29,5 +29,5 @@ export const loginSchema = {
 export const logoutSchema = {
   tags,
   summary: 'Log out (clears the session cookie)',
-  response: { 204: z.null() },
+  response: { 204: z.undefined().describe('Logged out') },
 } satisfies FastifySchema

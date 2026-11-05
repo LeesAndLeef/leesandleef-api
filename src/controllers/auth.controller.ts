@@ -17,5 +17,5 @@ export async function login(req: Request<typeof loginSchema>, reply: Reply<typeo
 
 export async function logout(_req: Request<typeof logoutSchema>, reply: Reply<typeof logoutSchema>) {
   endSession(reply)
-  return reply.code(204).send(null)
+  return reply.code(204).send()
 }
