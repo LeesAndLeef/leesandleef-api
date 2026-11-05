@@ -3,6 +3,7 @@ import type { WineFilterType } from '../types/content.ts'
 export const WINE_TYPES = ['Red', 'White', 'Orange', 'Rosé', 'Sparkling', 'Dessert'] as const
 export const WINE_FILTER_TYPES: WineFilterType[] = ['Red', 'White', 'Orange', 'Rosé', 'Sparkling']
 export const OIL_LEVELS = ['Delicate', 'Medium', 'Robust'] as const
+export const WINE_SORTS = ['newest', 'price-asc', 'price-desc', 'left'] as const
 export const FREQS = ['season', 'month'] as const
 
 export const DEFAULT_WINE_VOLUME = '750 ml'

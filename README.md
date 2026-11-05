@@ -37,9 +37,9 @@ Everything sits under `/api/v1`, except `/health` and `/webhooks/stripe`. Intera
 | Method       | Path                              |                                                                                               |
 | ------------ | --------------------------------- | --------------------------------------------------------------------------------------------- |
 | GET          | `/site`                           | Shop details (address, hours, ship countries, next box cutoff)                                |
-| GET          | `/wines?type=&growerId=`          | Wines, unlisted ones flagged with `unlisted: true`                                            |
+| GET          | `/wines`                          | Wines, filtered and sorted (see Catalog filters); unlisted ones flagged with `unlisted: true` |
 | GET          | `/wines/:id`                      |                                                                                               |
-| GET          | `/oils?growerId=`                 | Olive oils and tasting sets                                                                   |
+| GET          | `/oils`                           | Olive oils and tasting sets (see Catalog filters)                                             |
 | GET          | `/oils/:id`                       |                                                                                               |
 | GET          | `/club-plans`                     |                                                                                               |
 | GET          | `/growers`, `/growers/:id`        |                                                                                               |
@@ -66,6 +66,15 @@ Everything sits under `/api/v1`, except `/health` and `/webhooks/stripe`. Intera
 | GET          | `/orders` 🔒                      | Your orders, newest first                                                                     |
 | GET          | `/orders/:id` 🔒                  | One of your orders; re-checks a pending card payment                                          |
 | POST         | `/newsletter`                     | `{ email, source? }`                                                                          |
+
+## Catalog filters
+
+Without parameters, `/wines` and `/oils` return everything, as before. Every parameter narrows the list, and they combine with AND. List parameters take repeated values or commas (`region=Istria&region=Dalmatia` or `region=Istria,Dalmatia`). Booleans are `true` or `false`.
+
+- `/wines`: `type`, `growerId`, `q` (text in name, grower, grape or region), `region`, `grape` (matches the start of the grape, so `Malvazija` finds `Malvazija Istarska`), `priceMin`, `priceMax`, `maxSo2` (mg/L), `so2Added=false` (zero added SO₂), `vegan`, `amphora`, `magnum`, `inStock`, `listed=true` (hide unlisted wines), `sort` (`newest`, `price-asc`, `price-desc`, `left`; default catalog order).
+- `/oils`: `growerId`, `level` (`Delicate`, `Medium`, `Robust`), `set=false` (hide tasting sets).
+
+The shop's wine page is `/wines?listed=true&…` and its oil page `/oils?set=false&…`. Text matching ignores case but not accents.
 
 Content responses use the same shape as the UI's `src/data/` types (minus `path`, which the UI's `src/lib/` adds), so the access layer can swap its imports for fetches.
 
