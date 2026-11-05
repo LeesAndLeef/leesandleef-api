@@ -1,5 +1,6 @@
 export type WineFilterType = 'Red' | 'White' | 'Orange' | 'Rosé' | 'Sparkling'
 export type WineType = WineFilterType | 'Dessert'
+export type WineSort = 'newest' | 'price-asc' | 'price-desc' | 'left'
 
 export interface Vintage {
   year: string
