@@ -1,20 +1,19 @@
 import type * as t from '../db/schema.ts'
 import type { Account } from '../types/account.ts'
-import type { Article, ClubPlan, Grower, Oil, Wine } from '../types/content.ts'
+import type { Article, ClubPlan, Grower, OilContent, WineContent } from '../types/content.ts'
 import { compact } from '../utils/compact.ts'
 
 type Row<T extends { $inferSelect: unknown }> = T['$inferSelect']
 
-export function toWine({ position: _, unlisted, ...row }: Row<typeof t.wines>): Wine {
-  return { kind: 'wine', ...compact(row), ...(unlisted && { unlisted }) }
+export function toWine({ unlisted, releaseDate, ...row }: Row<typeof t.wineStyles>): WineContent {
+  return { kind: 'wine', ...compact(row), releaseDate: releaseDate.toISOString(), ...(unlisted && { unlisted }) }
 }
 
-export function toOil({ position: _, limited, ...row }: Row<typeof t.oils>): Oil {
-  return { kind: 'oil', ...compact(row), ...(limited && { limited }) }
+export function toOil({ limited, releaseDate, ...row }: Row<typeof t.oilStyles>): OilContent {
+  return { kind: 'oil', ...compact(row), releaseDate: releaseDate.toISOString(), ...(limited && { limited }) }
 }
 
 export function toClubPlan({
-  position: _,
   priceSeason,
   priceMonth,
   description,
@@ -30,7 +29,7 @@ export function toClubPlan({
   }
 }
 
-export function toGrower({ position: _, ...row }: Row<typeof t.growers>): Grower {
+export function toGrower(row: Row<typeof t.growers>): Grower {
   return compact(row)
 }
 

@@ -84,7 +84,7 @@ describe.skipIf(!url)('accounts and checkout', () => {
   })
 
   it('keeps a guest cart in a signed cookie', async () => {
-    const added = await customer.request('POST', '/api/v1/cart/lines', { id: 'teran-crvena-zemlja', qty: 6 })
+    const added = await customer.request('POST', '/api/v1/cart/lines', { id: 'teran-crvena-zemlja-2023', qty: 6 })
     expect(added.statusCode).toBe(200)
     expect(added.json().totals.wineBottles).toBe(6)
     expect(customer.jar.has('cart')).toBe(true)

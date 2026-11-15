@@ -8,12 +8,12 @@ export const FREQS = ['season', 'month'] as const
 
 export const DEFAULT_WINE_VOLUME = '750 ml'
 
+export const OIL_SIZE_IDS = ['250', '500', '3000'] as const
 export const OIL_SIZES = [
-  { id: '250', label: '250 ml', name: '250 ml tin', mult: 0.6 },
-  { id: '500', label: '500 ml', name: '500 ml tin', mult: 1 },
-  { id: '3000', label: '3 L', name: '3 L tin', mult: 4.6 },
+  { size: '250', label: '250 ml', name: '250 ml tin' },
+  { size: '500', label: '500 ml', name: '500 ml tin' },
+  { size: '3000', label: '3 L', name: '3 L tin' },
 ] as const
-export const DEFAULT_OIL_SIZE = '500'
 
 export const FREQ_LABEL = { season: 'per season', month: 'per month' } as const
 

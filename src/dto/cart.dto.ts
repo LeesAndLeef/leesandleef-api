@@ -79,7 +79,7 @@ export const getShippingOptionsSchema = {
 
 export const addLineSchema = {
   tags,
-  summary: 'Add a product or club plan. option is a vintage year, an oil size or a club frequency',
+  summary: 'Add a wine vintage, oil size, tasting set or club plan by its id. option is the club frequency',
   body: addLineBody,
   response,
 } satisfies FastifySchema

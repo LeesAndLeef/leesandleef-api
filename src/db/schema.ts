@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm'
 import {
   boolean,
   date,
@@ -10,9 +11,11 @@ import {
   primaryKey,
   text,
   timestamp,
+  unique,
+  uniqueIndex,
   uuid,
 } from 'drizzle-orm/pg-core'
-import { OIL_LEVELS, ORDER_STATUSES, PAY_METHODS, SHIP_METHODS, WINE_TYPES } from '../config/constants.ts'
+import { OIL_LEVELS, OIL_SIZE_IDS, ORDER_STATUSES, PAY_METHODS, SHIP_METHODS, WINE_TYPES } from '../config/constants.ts'
 import type { Article, GrowerProfile, OilDetail, OilSet, QuizAnswer, Site, WineDetail } from '../types/content.ts'
 
 const money = () => numeric({ precision: 10, scale: 2, mode: 'number' })
@@ -20,13 +23,13 @@ const createdAt = () => timestamp({ withTimezone: true }).notNull().defaultNow()
 
 export const wineType = pgEnum('wine_type', WINE_TYPES)
 export const oilLevel = pgEnum('oil_level', OIL_LEVELS)
+export const oilSizeId = pgEnum('oil_size', OIL_SIZE_IDS)
 export const shipMethod = pgEnum('ship_method', SHIP_METHODS)
 export const payMethod = pgEnum('pay_method', PAY_METHODS)
 export const orderStatus = pgEnum('order_status', ORDER_STATUSES)
 
 export const growers = pgTable('growers', {
   id: text().primaryKey(),
-  position: integer().notNull(),
   name: text().notNull(),
   shortName: text().notNull(),
   place: text().notNull(),
@@ -44,27 +47,23 @@ export const growers = pgTable('growers', {
 
 const productColumns = () => ({
   id: text().primaryKey(),
-  position: integer().notNull(),
   name: text().notNull(),
   growerId: text().references(() => growers.id),
   growerName: text(),
   region: text().notNull(),
-  price: money().notNull(),
-  left: integer(),
   glass: text().notNull(),
   cap: text().notNull(),
   note: text().notNull(),
 })
 
-export const wines = pgTable('wines', {
+export const wineStyles = pgTable('wine_styles', {
   ...productColumns(),
   type: wineType().notNull(),
   grape: text().notNull(),
   abv: text().notNull(),
   volume: text(),
   homeNote: text(),
-  badge: text(),
-  releaseRank: integer().notNull(),
+  releaseDate: timestamp({ withTimezone: true }).notNull(),
   unlisted: boolean().notNull().default(false),
   so2: integer().notNull(),
   so2Added: boolean().notNull(),
@@ -74,8 +73,26 @@ export const wines = pgTable('wines', {
   detail: jsonb().$type<WineDetail>().notNull(),
 })
 
-export const oils = pgTable('oils', {
+export const wines = pgTable(
+  'wines',
+  {
+    id: text().primaryKey(),
+    styleId: text()
+      .notNull()
+      .references(() => wineStyles.id, { onDelete: 'cascade' }),
+    vintage: text(),
+    name: text().notNull(),
+    price: money().notNull(),
+    left: integer(),
+    preOrder: text(),
+    isDefault: boolean().notNull().default(false),
+  },
+  (t) => [unique().on(t.styleId, t.vintage), uniqueIndex().on(t.styleId).where(sql`${t.isDefault}`)],
+)
+
+export const oilStyles = pgTable('oil_styles', {
   ...productColumns(),
+  releaseDate: timestamp({ withTimezone: true }).notNull(),
   cultivar: text().notNull(),
   origin: text().notNull(),
   level: oilLevel().notNull(),
@@ -90,9 +107,24 @@ export const oils = pgTable('oils', {
   detail: jsonb().$type<OilDetail>().notNull(),
 })
 
+export const oils = pgTable(
+  'oils',
+  {
+    id: text().primaryKey(),
+    styleId: text()
+      .notNull()
+      .references(() => oilStyles.id, { onDelete: 'cascade' }),
+    size: oilSizeId(),
+    label: text().notNull(),
+    name: text().notNull(),
+    price: money().notNull(),
+    left: integer(),
+  },
+  (t) => [unique().on(t.styleId, t.size)],
+)
+
 export const clubPlans = pgTable('club_plans', {
   id: text().primaryKey(),
-  position: integer().notNull(),
   name: text().notNull(),
   tag: text().notNull(),
   bottles: integer().notNull(),
