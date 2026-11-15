@@ -2,9 +2,11 @@ import { MAX_CART_LINES } from '../config/constants.ts'
 import type { DbOrTx } from '../db/client.ts'
 import { lineKey, maxQty, normalizeOption } from '../lib/cartOptions.ts'
 import { computeTotals, priceLines } from '../lib/pricing.ts'
+import { findOil } from '../repositories/oil.repository.ts'
 import { findOrder } from '../repositories/order.repository.ts'
 import { findItem, findItems } from '../repositories/product.repository.ts'
 import { findActivePromo } from '../repositories/promo.repository.ts'
+import { findWine } from '../repositories/wine.repository.ts'
 import type { CartLine, CartState, PricedCart } from '../types/cart.ts'
 import type { CartItem } from '../types/content.ts'
 import { notFound, unprocessable } from '../utils/errors.ts'
@@ -59,8 +61,12 @@ async function commit(
 
 async function requireItem(db: DbOrTx, id: string): Promise<CartItem> {
   const item = await findItem(db, id)
-  if (!item) throw notFound(`Product ${id} not found`)
-  return item
+  if (item) return item
+  const oil = await findOil(db, id)
+  if (oil) throw unprocessable(`Choose a size of ${oil.name}: ${oil.sizes.map((size) => size.id).join(', ')}`)
+  const wine = await findWine(db, id)
+  if (wine) throw unprocessable(`Choose a vintage of ${wine.name}: ${wine.vintages.map((v) => v.id).join(', ')}`)
+  throw notFound(`Product ${id} not found`)
 }
 
 function requireLine(lines: CartLine[], key: string, label: string) {

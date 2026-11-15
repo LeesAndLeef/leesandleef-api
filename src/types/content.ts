@@ -2,12 +2,6 @@ export type WineFilterType = 'Red' | 'White' | 'Orange' | 'Rosé' | 'Sparkling'
 export type WineType = WineFilterType | 'Dessert'
 export type WineSort = 'newest' | 'price-asc' | 'price-desc' | 'left'
 
-export interface Vintage {
-  year: string
-  price: number
-  info: string
-}
-
 export interface StructureBar {
   label: string
   value: number
@@ -29,8 +23,6 @@ export interface RelatedProduct {
 export interface WineDetail {
   story: string
   tags: string[]
-  vintages?: Vintage[]
-  defaultVintage?: string
   drinkWindow: { label: string; cells: number[] }
   tasting: { nose: string; palate: string; finish: string }
   structure: StructureBar[]
@@ -49,11 +41,20 @@ interface BaseProduct {
   growerId?: string
   growerName?: string
   region: string
-  price: number
-  left?: number
   glass: string
   cap: string
   note: string
+  releaseDate: string
+}
+
+export interface WineVintage {
+  id: string
+  vintage: string | null
+  name: string
+  price: number
+  left?: number
+  preOrder?: string
+  isDefault: boolean
 }
 
 export interface Wine extends BaseProduct {
@@ -63,8 +64,6 @@ export interface Wine extends BaseProduct {
   abv: string
   volume?: string
   homeNote?: string
-  badge?: string
-  releaseRank: number
   unlisted?: boolean
   so2: number
   so2Added: boolean
@@ -72,9 +71,15 @@ export interface Wine extends BaseProduct {
   amphora: boolean
   magnum: boolean
   detail: WineDetail
+  vintages: WineVintage[]
 }
 
+export type WineContent = Omit<Wine, 'vintages'>
+
+export type SellableWine = Wine & { price: number; vintage: WineVintage }
+
 export type OilLevel = 'Delicate' | 'Medium' | 'Robust'
+export type OilSizeId = '250' | '500' | '3000'
 
 export type OilTrait = 'fruit' | 'bitter' | 'pepper'
 
@@ -101,8 +106,16 @@ export interface OilDetail {
 }
 
 export interface OilSet {
-  was: number
   contents: string
+}
+
+export interface OilSize {
+  id: string
+  size: OilSizeId | null
+  label: string
+  name: string
+  price: number
+  left?: number
 }
 
 export interface Oil extends BaseProduct {
@@ -119,7 +132,12 @@ export interface Oil extends BaseProduct {
   limited?: boolean
   set?: OilSet
   detail: OilDetail
+  sizes: OilSize[]
 }
+
+export type OilContent = Omit<Oil, 'sizes'>
+
+export type SellableOil = Oil & { price: number; size: OilSize }
 
 export type Product = Wine | Oil
 
@@ -137,7 +155,7 @@ export interface ClubPlan {
   perks: string[]
 }
 
-export type CartItem = Product | ClubPlan
+export type CartItem = SellableWine | SellableOil | ClubPlan
 
 export interface GrowerMonth {
   name: string
@@ -249,4 +267,31 @@ export interface Site {
   email: string
   shipCountries: string[]
   nonEuShippingYear: string
+}
+
+export interface PriceRange {
+  min: number
+  max: number
+}
+
+export interface WineListMeta {
+  total: number
+  types: Record<WineType, number>
+  regions: Record<string, number>
+  price: PriceRange | null
+}
+
+export interface OilListMeta {
+  total: number
+  levels: Record<OilLevel, number>
+}
+
+export interface WineList {
+  data: Wine[]
+  meta: WineListMeta
+}
+
+export interface OilList {
+  data: Oil[]
+  meta: OilListMeta
 }

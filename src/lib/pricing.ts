@@ -4,20 +4,17 @@ import {
   FREQ_LABEL,
   MIX_DISCOUNT_RATE,
   MIX_SIX,
-  OIL_SIZES,
   SATURDAY_SURCHARGE,
   SHIP_DETAILS,
   SHIP_METHODS,
   SHIPPING_FEE,
 } from '../config/constants.ts'
 import type { CartItemSummary, CartLine, PricedLine, ShipMethod, ShipOption, Totals } from '../types/cart.ts'
-import type { CartItem, Freq, Oil } from '../types/content.ts'
+import type { CartItem, Freq, SellableOil } from '../types/content.ts'
 import { roundMoney } from '../utils/money.ts'
 import { maxQty } from './cartOptions.ts'
 
-export const oilSize = (id?: string) => OIL_SIZES.find((size) => size.id === id) ?? OIL_SIZES[1]
-
-export const oilPrice = (oil: Oil, size?: string) => (oil.set ? oil.price : Math.round(oil.price * oilSize(size).mult))
+const oilMeta = (oil: SellableOil) => (oil.set ? `Tasting set · ${oil.set.contents}` : `Olive oil · ${oil.size.name}`)
 
 export function summarize(item: CartItem): CartItemSummary {
   if (item.kind === 'club') return item
@@ -44,15 +41,10 @@ export function priceLine(line: CartLine, item: CartItem | undefined): PricedLin
     }
   }
 
-  const vintage = item.kind === 'wine' ? item.detail.vintages?.find((v) => v.year === line.option) : undefined
-  const unit = item.kind === 'oil' ? oilPrice(item, line.option) : (vintage?.price ?? item.price)
-  const name = vintage ? item.name.replace(/\d{4}$/, vintage.year) : item.name
+  const unit = item.price
+  const name = item.kind === 'wine' ? item.vintage.name : item.name
   const meta =
-    item.kind === 'wine'
-      ? `${item.type} · ${item.region} · ${item.volume ?? DEFAULT_WINE_VOLUME}`
-      : item.set
-        ? `Tasting set · ${item.set.contents}`
-        : `Olive oil · ${oilSize(line.option).name}`
+    item.kind === 'wine' ? `${item.type} · ${item.region} · ${item.volume ?? DEFAULT_WINE_VOLUME}` : oilMeta(item)
   return {
     ...base,
     name,

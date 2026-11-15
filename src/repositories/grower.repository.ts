@@ -4,7 +4,7 @@ import * as t from '../db/schema.ts'
 import { toGrower } from '../lib/mappers.ts'
 
 export async function findGrowers(db: DbOrTx) {
-  const rows = await db.select().from(t.growers).orderBy(asc(t.growers.position))
+  const rows = await db.select().from(t.growers).orderBy(asc(t.growers.name))
   return rows.map(toGrower)
 }
 

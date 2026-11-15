@@ -1,5 +1,5 @@
 import type { SHIP_METHODS } from '../config/constants.ts'
-import type { CartItem, ClubPlan, Oil, Wine } from './content.ts'
+import type { CartItem, ClubPlan, SellableOil, SellableWine } from './content.ts'
 
 export interface CartLine {
   key: string
@@ -8,7 +8,7 @@ export interface CartLine {
   qty: number
 }
 
-export type CartItemSummary = Omit<Wine, 'detail'> | Omit<Oil, 'detail'> | ClubPlan
+export type CartItemSummary = Omit<SellableWine, 'detail'> | Omit<SellableOil, 'detail'> | ClubPlan
 
 export interface PricedLine extends CartLine {
   kind: CartItem['kind']

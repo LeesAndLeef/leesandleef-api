@@ -1,5 +1,6 @@
 import { QUIZ_MAX_PER_STYLE, QUIZ_MIX_SIZE, WINE_FILTER_TYPES } from '../config/constants.ts'
 import type { QuizQuestion, Wine, WineFilterType } from '../types/content.ts'
+import { defaultVintage } from './wineVintage.ts'
 
 export function answersError(questions: QuizQuestion[], answers: number[]): string | null {
   if (answers.length !== questions.length) return `Expected ${questions.length} answers, got ${answers.length}`
@@ -18,7 +19,7 @@ export function recommend(questions: QuizQuestion[], wines: Wine[], answers: num
   })
 
   const score = (w: Wine) => (styleScores[w.type as WineFilterType] ?? 0) * 3 + bold * (parseFloat(w.abv) - 12.5)
-  const ranked = wines.filter((w) => !w.unlisted && w.left !== 0).sort((a, b) => score(b) - score(a))
+  const ranked = wines.filter((w) => !w.unlisted && defaultVintage(w)?.left !== 0).sort((a, b) => score(b) - score(a))
 
   const six: Wine[] = []
   for (const w of ranked) {

@@ -10,12 +10,16 @@ import { oils } from './data/oils.ts'
 import { quiz, quizProfiles } from './data/quiz.ts'
 import { site } from './data/site.ts'
 import { wines } from './data/wines.ts'
+import { seedOilSizes } from './oilSizes.ts'
+import { seedWineVintages } from './wineVintages.ts'
 
 const { db, pool } = createDb(env.DATABASE_URL)
 
 await db.transaction(async (tx) => {
   await tx.delete(t.wines)
+  await tx.delete(t.wineStyles)
   await tx.delete(t.oils)
+  await tx.delete(t.oilStyles)
   await tx.delete(t.clubPlans)
   await tx.delete(t.articles)
   await tx.delete(t.quizQuestions)
@@ -24,13 +28,22 @@ await db.transaction(async (tx) => {
   await tx.delete(t.visitRequests)
   await tx.delete(t.growers)
 
-  await tx.insert(t.growers).values(growers.map((grower, position) => ({ ...grower, position })))
-  await tx.insert(t.wines).values(wines.map(({ kind: _, ...wine }, position) => ({ ...wine, position })))
-  await tx.insert(t.oils).values(oils.map(({ kind: _, ...oil }, position) => ({ ...oil, position })))
+  await tx.insert(t.growers).values(growers)
+  await tx
+    .insert(t.wineStyles)
+    .values(
+      wines.map(({ kind: _, vintages: __, ...style }) => ({ ...style, releaseDate: new Date(style.releaseDate) })),
+    )
+  await tx
+    .insert(t.wines)
+    .values(wines.flatMap((wine) => seedWineVintages(wine).map((vintage) => ({ ...vintage, styleId: wine.id }))))
+  await tx
+    .insert(t.oilStyles)
+    .values(oils.map(({ kind: _, sizes: __, ...style }) => ({ ...style, releaseDate: new Date(style.releaseDate) })))
+  await tx.insert(t.oils).values(oils.flatMap((oil) => seedOilSizes(oil).map((size) => ({ ...size, styleId: oil.id }))))
   await tx.insert(t.clubPlans).values(
-    clubPlans.map(({ kind: _, price, desc, ...plan }, position) => ({
+    clubPlans.map(({ kind: _, price, desc, ...plan }) => ({
       ...plan,
-      position,
       priceSeason: price.season,
       priceMonth: price.month,
       description: desc,

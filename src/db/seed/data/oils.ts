@@ -1,8 +1,8 @@
 const oliveTreesNets = '/assets/landscapes/olive-trees-nets.svg'
 
-import type { Oil } from '../../../types/content.ts'
+import type { OilSeed } from '../types.ts'
 
-export const oils: Oil[] = [
+export const oils: OilSeed[] = [
   {
     kind: 'oil',
     id: 'istarska-bjelica',
@@ -11,7 +11,12 @@ export const oils: Oil[] = [
     growerName: 'Vina Brajko',
     region: 'Istria',
     origin: 'Motovun, Istria',
-    price: 26,
+    releaseDate: '2025-10-01T09:00:00.000Z',
+    sizes: [
+      { size: '250', price: 16 },
+      { size: '500', price: 26 },
+      { size: '3000', price: 120 },
+    ],
     glass: 'var(--olive-900)',
     cap: 'var(--wine)',
     cultivar: 'Istarska Bjelica',
@@ -79,7 +84,12 @@ export const oils: Oil[] = [
     growerName: 'Obitelj Radić',
     region: 'Istria',
     origin: 'Momjan, Istria',
-    price: 28,
+    releaseDate: '2025-09-24T09:00:00.000Z',
+    sizes: [
+      { size: '250', price: 17 },
+      { size: '500', price: 28 },
+      { size: '3000', price: 129 },
+    ],
     glass: 'var(--olive-700)',
     cap: 'var(--wine)',
     cultivar: 'Rosinjola',
@@ -151,8 +161,12 @@ export const oils: Oil[] = [
     growerName: 'Vina Brajko',
     region: 'Istria',
     origin: 'Motovun, Istria',
-    price: 22,
-    left: 300,
+    releaseDate: '2025-09-17T09:00:00.000Z',
+    sizes: [
+      { size: '250', price: 13 },
+      { size: '500', price: 22, left: 300 },
+      { size: '3000', price: 101 },
+    ],
     glass: 'var(--olive-500)',
     cap: 'var(--ink)',
     cultivar: 'Buža',
@@ -220,7 +234,12 @@ export const oils: Oil[] = [
     growerName: 'Uljara Grohote',
     region: 'Dalmatia',
     origin: 'Šolta, Dalmatia',
-    price: 21,
+    releaseDate: '2025-09-10T09:00:00.000Z',
+    sizes: [
+      { size: '250', price: 13 },
+      { size: '500', price: 21 },
+      { size: '3000', price: 97 },
+    ],
     glass: 'var(--olive-300)',
     cap: 'var(--wine)',
     cultivar: 'Levantinka',
@@ -280,7 +299,12 @@ export const oils: Oil[] = [
     growerName: 'Uljara Grohote',
     region: 'Dalmatia',
     origin: 'Dalmatia',
-    price: 19,
+    releaseDate: '2025-09-03T09:00:00.000Z',
+    sizes: [
+      { size: '250', price: 11 },
+      { size: '500', price: 19 },
+      { size: '3000', price: 87 },
+    ],
     glass: 'var(--glass-straw)',
     cap: 'var(--olive-700)',
     cultivar: 'Oblica / Levantinka',
@@ -340,7 +364,12 @@ export const oils: Oil[] = [
     growerName: 'Stancija Mandić',
     region: 'Istria',
     origin: 'Vodnjan, Istria',
-    price: 20,
+    releaseDate: '2025-08-27T09:00:00.000Z',
+    sizes: [
+      { size: '250', price: 12 },
+      { size: '500', price: 20 },
+      { size: '3000', price: 92 },
+    ],
     glass: 'var(--bone)',
     cap: 'var(--wine)',
     cultivar: 'Leccino',
@@ -401,7 +430,12 @@ export const oils: Oil[] = [
     growerName: 'Vina Brajko',
     region: 'Istria',
     origin: 'Motovun, Istria',
-    price: 32,
+    releaseDate: '2025-08-20T09:00:00.000Z',
+    sizes: [
+      { size: '250', price: 19 },
+      { size: '500', price: 32 },
+      { size: '3000', price: 147 },
+    ],
     glass: 'var(--wine)',
     cap: 'var(--olive-700)',
     cultivar: 'Buža / Bjelica',
@@ -467,7 +501,8 @@ export const oils: Oil[] = [
     name: 'Olive oil tasting set',
     region: 'Istria & Dalmatia',
     origin: 'Istria & Dalmatia',
-    price: 36,
+    releaseDate: '2025-08-13T09:00:00.000Z',
+    sizes: [{ size: null, label: '3 × 250 ml tins', name: 'Tasting set', price: 36 }],
     glass: 'var(--olive-300)',
     cap: 'var(--wine)',
     cultivar: 'Oblica · Buža · Istarska Bjelica',
@@ -478,7 +513,7 @@ export const oils: Oil[] = [
     poly: '410–780 mg/kg',
     acid: '0.15–0.22%',
     harvest: 'Oct – Nov 2025',
-    set: { was: 40, contents: '3 × 250 ml tins' },
+    set: { contents: '3 × 250 ml tins' },
     note: 'Three 250 ml tins — Oblica, Buža and Istarska Bjelica — in a paper box with a tasting card and the grove map. Taste them side by side on plain bread.',
     detail: {
       style: 'Tasting set',

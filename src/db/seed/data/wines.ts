@@ -1,22 +1,37 @@
-import type { Wine } from '../../../types/content.ts'
+import type { WineSeed } from '../types.ts'
 
-export const wines: Wine[] = [
+export const wines: WineSeed[] = [
   {
     kind: 'wine',
     id: 'teran-crvena-zemlja',
-    name: 'Teran “Crvena Zemlja” 2023',
+    name: 'Teran “Crvena Zemlja”',
     growerId: 'vina-brajko',
     growerName: 'Vina Brajko',
     grape: 'Teran',
     region: 'Istria',
     type: 'Red',
     abv: '12.5%',
-    price: 24,
-    left: 118,
+    vintages: [
+      {
+        vintage: '2022',
+        price: 26,
+        left: 12,
+      },
+      {
+        vintage: '2023',
+        price: 24,
+        left: 118,
+        isDefault: true,
+      },
+      {
+        vintage: '2024',
+        price: 23,
+        preOrder: 'Mar',
+      },
+    ],
     glass: 'var(--glass-red)',
     cap: 'var(--wine)',
-    badge: 'Staff pick',
-    releaseRank: 1,
+    releaseDate: '2025-10-01T10:00:00.000Z',
     so2: 18,
     so2Added: true,
     vegan: true,
@@ -28,13 +43,10 @@ export const wines: Wine[] = [
       story:
         '“Crvena zemlja” means red earth. Ana Brajko’s Teran grows on a single south-facing terrace of iron-rich terra rossa beneath the walls of Motovun. Destemmed by hand, nine days on skins, then eleven months in old 500 L Slavonian oak. Unfined, unfiltered, a whisper of sulphur at bottling.',
       tags: ['Organic, uncertified', 'Vegan', 'Wild ferment', '18 mg/L total SO₂'],
-      vintages: [
-        { year: '2022', price: 26, info: '€26 · 12 left' },
-        { year: '2023', price: 24, info: '€24 · 118 left' },
-        { year: '2024', price: 23, info: 'Pre-order · Mar' },
-      ],
-      defaultVintage: '2023',
-      drinkWindow: { label: 'Best 2025 – 2029', cells: [0, 2, 2, 2, 2, 1, 0, 0] },
+      drinkWindow: {
+        label: 'Best 2025 – 2029',
+        cells: [0, 2, 2, 2, 2, 1, 0, 0],
+      },
       tasting: {
         nose: 'Sour cherry and pomegranate first, then wet red clay, crushed fennel seed and a hint of smoked paprika as it opens.',
         palate:
@@ -43,18 +55,54 @@ export const wines: Wine[] = [
           'Long and savoury. Bitter cherry pit, black pepper, a salty edge. Better on day two — recork and keep it in the fridge.',
       },
       structure: [
-        { label: 'Body', value: 5, word: 'Medium' },
-        { label: 'Acidity', value: 9, word: 'High' },
-        { label: 'Tannin', value: 6, word: 'Fine' },
-        { label: 'Fruit', value: 7, word: 'Red' },
-        { label: 'Funk', value: 2, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 5,
+          word: 'Medium',
+        },
+        {
+          label: 'Acidity',
+          value: 9,
+          word: 'High',
+        },
+        {
+          label: 'Tannin',
+          value: 6,
+          word: 'Fine',
+        },
+        {
+          label: 'Fruit',
+          value: 7,
+          word: 'Red',
+        },
+        {
+          label: 'Funk',
+          value: 2,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '14–16°', decant: '30 min', glass: 'Burgundy' },
+      serve: {
+        temp: '14–16°',
+        decant: '30 min',
+        glass: 'Burgundy',
+      },
       pairings: [
-        { dish: 'Istrian pršut & aged cheese', kind: 'Classic' },
-        { dish: 'Fuži with game ragù', kind: 'Local' },
-        { dish: 'Grilled lamb, rosemary, charred peppers', kind: 'Weekend' },
-        { dish: 'Mushroom & beetroot tart', kind: 'Veggie' },
+        {
+          dish: 'Istrian pršut & aged cheese',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Fuži with game ragù',
+          kind: 'Local',
+        },
+        {
+          dish: 'Grilled lamb, rosemary, charred peppers',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Mushroom & beetroot tart',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Brdo pod zidinama, single terrace'],
@@ -82,29 +130,56 @@ export const wines: Wine[] = [
         facts: '3.2 ha · 3rd generation',
       },
       related: [
-        { id: 'babic-kamenjar', why: 'Same grip, darker fruit' },
-        { id: 'plavac-mali-brijeg', why: 'For a bigger night' },
-        { id: 'opolo-svila', why: 'Chillable cousin' },
-        { id: 'buza-grove-14', why: 'Same hillside, same cellar' },
+        {
+          id: 'babic-kamenjar',
+          why: 'Same grip, darker fruit',
+        },
+        {
+          id: 'plavac-mali-brijeg',
+          why: 'For a bigger night',
+        },
+        {
+          id: 'opolo-svila',
+          why: 'Chillable cousin',
+        },
+        {
+          id: 'buza-grove-14',
+          why: 'Same hillside, same cellar',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'malvazija-sedam-dana',
-    name: 'Malvazija “Sedam Dana” 2023',
+    name: 'Malvazija “Sedam Dana”',
     growerId: 'obitelj-radic',
     growerName: 'Obitelj Radić',
     grape: 'Malvazija',
     region: 'Istria',
     type: 'Orange',
     abv: '12%',
-    price: 27,
-    left: 64,
+    vintages: [
+      {
+        vintage: '2022',
+        price: 29,
+        left: 9,
+      },
+      {
+        vintage: '2023',
+        price: 27,
+        left: 64,
+        isDefault: true,
+      },
+      {
+        vintage: '2024',
+        price: 26,
+        preOrder: 'Apr',
+      },
+    ],
     glass: 'var(--glass-amber)',
     cap: 'var(--paper)',
-    badge: '7 days skin',
-    releaseRank: 2,
+    releaseDate: '2025-09-24T10:00:00.000Z',
     so2: 12,
     so2Added: true,
     vegan: true,
@@ -116,13 +191,10 @@ export const wines: Wine[] = [
       story:
         '“Sedam dana” means seven days. Luka Radić leaves Malvazija from the old Stari vinograd plot on its skins for exactly a week: long enough for colour and grip, short enough to keep it bright. Basket-pressed, then ten months in old acacia casks in the stable cellar. Unfined, unfiltered, a small dose of sulphur at bottling.',
       tags: ['Organic certified', 'Vegan', '7 days on skins', '12 mg/L total SO₂'],
-      vintages: [
-        { year: '2022', price: 29, info: '€29 · 9 left' },
-        { year: '2023', price: 27, info: '€27 · 64 left' },
-        { year: '2024', price: 26, info: 'Pre-order · Apr' },
-      ],
-      defaultVintage: '2023',
-      drinkWindow: { label: 'Best 2025 – 2028', cells: [1, 2, 2, 2, 2, 1, 0, 0] },
+      drinkWindow: {
+        label: 'Best 2025 – 2028',
+        cells: [1, 2, 2, 2, 2, 1, 0, 0],
+      },
       tasting: {
         nose: 'Dried apricot skin, chamomile tea and orange peel, with beeswax and a little fennel pollen behind.',
         palate:
@@ -131,18 +203,54 @@ export const wines: Wine[] = [
           'Bitter almond, quince paste and a pinch of salt. Grippy and clean, and it keeps for three days once open.',
       },
       structure: [
-        { label: 'Body', value: 5, word: 'Medium' },
-        { label: 'Acidity', value: 6, word: 'Fresh' },
-        { label: 'Tannin', value: 4, word: 'Fine' },
-        { label: 'Fruit', value: 6, word: 'Stone' },
-        { label: 'Funk', value: 3, word: 'Light' },
+        {
+          label: 'Body',
+          value: 5,
+          word: 'Medium',
+        },
+        {
+          label: 'Acidity',
+          value: 6,
+          word: 'Fresh',
+        },
+        {
+          label: 'Tannin',
+          value: 4,
+          word: 'Fine',
+        },
+        {
+          label: 'Fruit',
+          value: 6,
+          word: 'Stone',
+        },
+        {
+          label: 'Funk',
+          value: 3,
+          word: 'Light',
+        },
       ],
-      serve: { temp: '12–14°', decant: '15 min', glass: 'White Burgundy' },
+      serve: {
+        temp: '12–14°',
+        decant: '15 min',
+        glass: 'White Burgundy',
+      },
       pairings: [
-        { dish: 'Fish brodet with soft polenta', kind: 'Classic' },
-        { dish: 'Fritaja with Istrian truffle', kind: 'Local' },
-        { dish: 'Roast chicken, lemon & sage', kind: 'Weekend' },
-        { dish: 'Grilled squash, ricotta & walnuts', kind: 'Veggie' },
+        {
+          dish: 'Fish brodet with soft polenta',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Fritaja with Istrian truffle',
+          kind: 'Local',
+        },
+        {
+          dish: 'Roast chicken, lemon & sage',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Grilled squash, ricotta & walnuts',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Stari vinograd, lower rows'],
@@ -171,29 +279,51 @@ export const wines: Wine[] = [
         facts: '4.8 ha · since 2011',
       },
       related: [
-        { id: 'malvazija-amfora', why: 'Longer on skins, in clay' },
-        { id: 'muskat-pod-crkvom', why: 'Same hill, more perfume' },
-        { id: 'skrlet-mahovina', why: 'A lighter lunch white' },
-        { id: 'rosinjola-early-harvest', why: 'Same family, same hill' },
+        {
+          id: 'malvazija-amfora',
+          why: 'Longer on skins, in clay',
+        },
+        {
+          id: 'muskat-pod-crkvom',
+          why: 'Same hill, more perfume',
+        },
+        {
+          id: 'skrlet-mahovina',
+          why: 'A lighter lunch white',
+        },
+        {
+          id: 'rosinjola-early-harvest',
+          why: 'Same family, same hill',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'plavac-mali-brijeg',
-    name: 'Plavac Mali “Brijeg” 2021',
+    name: 'Plavac Mali “Brijeg”',
     growerId: 'podrum-kos',
     growerName: 'Podrum Kos',
     grape: 'Plavac Mali',
     region: 'Pelješac',
     type: 'Red',
     abv: '14%',
-    price: 31,
-    left: 22,
+    vintages: [
+      {
+        vintage: '2019',
+        price: 36,
+        left: 6,
+      },
+      {
+        vintage: '2021',
+        price: 31,
+        left: 22,
+        isDefault: true,
+      },
+    ],
     glass: 'var(--glass-garnet)',
     cap: 'var(--olive-300)',
-    badge: '420 bottles',
-    releaseRank: 4,
+    releaseDate: '2025-09-10T10:00:00.000Z',
     so2: 24,
     so2Added: true,
     vegan: false,
@@ -205,12 +335,10 @@ export const wines: Wine[] = [
       story:
         'Brijeg is the sea slope at Potomje: dolomite scree so steep that within living memory the harvest came down on donkeys. Ivo and Marija Kos pick only the oldest rows, ferment with native yeast and age the wine twenty months in large old oak. Just 420 bottles, fined with egg white the way Ivo’s father did it.',
       tags: ['Old vines, 1971', 'Fined with egg white', 'Wild ferment', '24 mg/L total SO₂'],
-      vintages: [
-        { year: '2019', price: 36, info: '€36 · 6 left' },
-        { year: '2021', price: 31, info: '€31 · 22 left' },
-      ],
-      defaultVintage: '2021',
-      drinkWindow: { label: 'Best 2026 – 2034', cells: [0, 1, 2, 2, 2, 2, 2, 2] },
+      drinkWindow: {
+        label: 'Best 2026 – 2034',
+        cells: [0, 1, 2, 2, 2, 2, 2, 2],
+      },
       tasting: {
         nose: 'Dried fig, carob and black olive tapenade, then warm stone, bay leaf and a whiff of sea spray.',
         palate:
@@ -219,18 +347,54 @@ export const wines: Wine[] = [
           'Very long and salty, with cocoa, liquorice root and dried herbs. Decant it, or give it another five years.',
       },
       structure: [
-        { label: 'Body', value: 9, word: 'Full' },
-        { label: 'Acidity', value: 5, word: 'Moderate' },
-        { label: 'Tannin', value: 8, word: 'Firm' },
-        { label: 'Fruit', value: 8, word: 'Dark' },
-        { label: 'Funk', value: 1, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 9,
+          word: 'Full',
+        },
+        {
+          label: 'Acidity',
+          value: 5,
+          word: 'Moderate',
+        },
+        {
+          label: 'Tannin',
+          value: 8,
+          word: 'Firm',
+        },
+        {
+          label: 'Fruit',
+          value: 8,
+          word: 'Dark',
+        },
+        {
+          label: 'Funk',
+          value: 1,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '16–18°', decant: '1 hour', glass: 'Bordeaux' },
+      serve: {
+        temp: '16–18°',
+        decant: '1 hour',
+        glass: 'Bordeaux',
+      },
       pairings: [
-        { dish: 'Pašticada with gnocchi', kind: 'Classic' },
-        { dish: 'Lamb and potatoes under the peka', kind: 'Local' },
-        { dish: 'Dry-aged ribeye on the grill', kind: 'Weekend' },
-        { dish: 'Smoked aubergine & black lentils', kind: 'Veggie' },
+        {
+          dish: 'Pašticada with gnocchi',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Lamb and potatoes under the peka',
+          kind: 'Local',
+        },
+        {
+          dish: 'Dry-aged ribeye on the grill',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Smoked aubergine & black lentils',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Brijeg, the oldest rows on the sea slope'],
@@ -258,29 +422,51 @@ export const wines: Wine[] = [
         facts: '2.4 ha · since 1981',
       },
       related: [
-        { id: 'plavac-mali-gornji', why: 'Same grape, upper terrace' },
-        { id: 'babic-kamenjar', why: 'Dalmatian stone, finer' },
-        { id: 'crljenak-kastela', why: 'Its parent grape' },
-        { id: 'prosek-strpljenje', why: 'To finish the night' },
+        {
+          id: 'plavac-mali-gornji',
+          why: 'Same grape, upper terrace',
+        },
+        {
+          id: 'babic-kamenjar',
+          why: 'Dalmatian stone, finer',
+        },
+        {
+          id: 'crljenak-kastela',
+          why: 'Its parent grape',
+        },
+        {
+          id: 'prosek-strpljenje',
+          why: 'To finish the night',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'grasevina-pet-nat-pjena',
-    name: 'Graševina Pét-Nat “Pjena” 2024',
+    name: 'Graševina Pét-Nat “Pjena”',
     growerId: 'tri-bure',
     growerName: 'Tri Bure',
     grape: 'Graševina',
     region: 'Slavonia',
     type: 'Sparkling',
     abv: '11%',
-    price: 19,
-    left: 210,
+    vintages: [
+      {
+        vintage: '2024',
+        price: 19,
+        left: 210,
+        isDefault: true,
+      },
+      {
+        vintage: '2025',
+        price: 19,
+        preOrder: 'May',
+      },
+    ],
     glass: 'var(--olive-500)',
     cap: 'var(--ink)',
-    badge: 'New',
-    releaseRank: 3,
+    releaseDate: '2025-09-17T10:00:00.000Z',
     so2: 6,
     so2Added: false,
     vegan: true,
@@ -292,12 +478,10 @@ export const wines: Wine[] = [
       story:
         '“Pjena” means foam. Marko Babić picks Graševina from his uncle’s slope a little early for acidity, lets it ferment on its own yeast and bottles it before the sugar runs out, so it finishes fermenting under crown cap. Méthode ancestrale: no disgorging, no filtering, no sulphur added. Just cloud, crunch and bubbles.',
       tags: ['Pétillant naturel', 'Vegan', 'Zero added SO₂ · 6 mg/L natural', 'Unfiltered, crown cap'],
-      vintages: [
-        { year: '2024', price: 19, info: '€19 · 210 left' },
-        { year: '2025', price: 19, info: 'Pre-order · May' },
-      ],
-      defaultVintage: '2024',
-      drinkWindow: { label: 'Drink 2025 – 2026', cells: [1, 2, 2, 0, 0, 0, 0, 0] },
+      drinkWindow: {
+        label: 'Drink 2025 – 2026',
+        cells: [1, 2, 2, 0, 0, 0, 0, 0],
+      },
       tasting: {
         nose: 'Green apple peel, sourdough starter and elderflower, with a hint of fresh hay.',
         palate:
@@ -306,18 +490,54 @@ export const wines: Wine[] = [
           'Short, clean and mouth-watering, with a yeasty, cidery snap. Pour the sediment in or leave it; both are right.',
       },
       structure: [
-        { label: 'Body', value: 3, word: 'Light' },
-        { label: 'Acidity', value: 8, word: 'Bright' },
-        { label: 'Bubbles', value: 5, word: 'Soft' },
-        { label: 'Fruit', value: 6, word: 'Orchard' },
-        { label: 'Funk', value: 5, word: 'Cloudy' },
+        {
+          label: 'Body',
+          value: 3,
+          word: 'Light',
+        },
+        {
+          label: 'Acidity',
+          value: 8,
+          word: 'Bright',
+        },
+        {
+          label: 'Bubbles',
+          value: 5,
+          word: 'Soft',
+        },
+        {
+          label: 'Fruit',
+          value: 6,
+          word: 'Orchard',
+        },
+        {
+          label: 'Funk',
+          value: 5,
+          word: 'Cloudy',
+        },
       ],
-      serve: { temp: '6–8°', decant: 'No', glass: 'Tumbler' },
+      serve: {
+        temp: '6–8°',
+        decant: 'No',
+        glass: 'Tumbler',
+      },
       pairings: [
-        { dish: 'Fiš paprikaš', kind: 'Classic' },
-        { dish: 'Kulen, fresh cheese & paprika', kind: 'Local' },
-        { dish: 'Fried chicken on a Sunday', kind: 'Weekend' },
-        { dish: 'Pogača with spring onions', kind: 'Veggie' },
+        {
+          dish: 'Fiš paprikaš',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Kulen, fresh cheese & paprika',
+          kind: 'Local',
+        },
+        {
+          dish: 'Fried chicken on a Sunday',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Pogača with spring onions',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Stričev brijeg, the uncle’s slope'],
@@ -346,28 +566,56 @@ export const wines: Wine[] = [
         facts: '1.6 ha · since 2019',
       },
       related: [
-        { id: 'grasevina-les', why: 'Same grape, still' },
-        { id: 'zlahtina-pjena-mora', why: 'Traditional-method bubbles' },
-        { id: 'skrlet-mahovina', why: 'Same garage, no fizz' },
-        { id: 'opolo-svila', why: 'Another one for summer' },
+        {
+          id: 'grasevina-les',
+          why: 'Same grape, still',
+        },
+        {
+          id: 'zlahtina-pjena-mora',
+          why: 'Traditional-method bubbles',
+        },
+        {
+          id: 'skrlet-mahovina',
+          why: 'Same garage, no fizz',
+        },
+        {
+          id: 'opolo-svila',
+          why: 'Another one for summer',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'posip-kamen',
-    name: 'Pošip “Kamen” 2023',
+    name: 'Pošip “Kamen”',
     growerId: 'stari-brijeg',
     growerName: 'Stari Brijeg',
     grape: 'Pošip',
     region: 'Korčula',
     type: 'White',
     abv: '13%',
-    price: 22,
-    left: 95,
+    vintages: [
+      {
+        vintage: '2022',
+        price: 24,
+        left: 14,
+      },
+      {
+        vintage: '2023',
+        price: 22,
+        left: 95,
+        isDefault: true,
+      },
+      {
+        vintage: '2024',
+        price: 22,
+        preOrder: 'Apr',
+      },
+    ],
     glass: 'var(--olive-300)',
     cap: 'var(--wine)',
-    releaseRank: 5,
+    releaseDate: '2025-09-03T10:00:00.000Z',
     so2: 22,
     so2Added: true,
     vegan: false,
@@ -378,13 +626,10 @@ export const wines: Wine[] = [
       story:
         '“Kamen” means stone. Jure Kovač farms Pošip in the karst field at Čara on Korčula, where red soil gathers between dry-stone walls. Picked at dawn, pressed whole-bunch, fermented on native yeast and kept six months on its lees in steel. Lightly fined before bottling.',
       tags: ['Hand harvest', 'Wild ferment', '6 months on lees', '22 mg/L total SO₂'],
-      vintages: [
-        { year: '2022', price: 24, info: '€24 · 14 left' },
-        { year: '2023', price: 22, info: '€22 · 95 left' },
-        { year: '2024', price: 22, info: 'Pre-order · Apr' },
-      ],
-      defaultVintage: '2023',
-      drinkWindow: { label: 'Best 2024 – 2027', cells: [2, 2, 2, 2, 1, 0, 0, 0] },
+      drinkWindow: {
+        label: 'Best 2024 – 2027',
+        cells: [2, 2, 2, 2, 1, 0, 0, 0],
+      },
       tasting: {
         nose: 'Lemon pith, white peach and salted almond, with the warm smell of sun on limestone.',
         palate:
@@ -392,18 +637,54 @@ export const wines: Wine[] = [
         finish: 'Medium-long, nutty and salty, with a bitter citrus-zest twist that keeps it fresh.',
       },
       structure: [
-        { label: 'Body', value: 7, word: 'Round' },
-        { label: 'Acidity', value: 5, word: 'Gentle' },
-        { label: 'Tannin', value: 1, word: 'None' },
-        { label: 'Fruit', value: 6, word: 'Citrus' },
-        { label: 'Funk', value: 1, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 7,
+          word: 'Round',
+        },
+        {
+          label: 'Acidity',
+          value: 5,
+          word: 'Gentle',
+        },
+        {
+          label: 'Tannin',
+          value: 1,
+          word: 'None',
+        },
+        {
+          label: 'Fruit',
+          value: 6,
+          word: 'Citrus',
+        },
+        {
+          label: 'Funk',
+          value: 1,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '10–12°', decant: 'No', glass: 'White wine' },
+      serve: {
+        temp: '10–12°',
+        decant: 'No',
+        glass: 'White wine',
+      },
       pairings: [
-        { dish: 'Grilled sea bream with blitva', kind: 'Classic' },
-        { dish: 'Žrnovski makaruni', kind: 'Local' },
-        { dish: 'Black cuttlefish risotto', kind: 'Weekend' },
-        { dish: 'Chickpea & wild fennel salad', kind: 'Veggie' },
+        {
+          dish: 'Grilled sea bream with blitva',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Žrnovski makaruni',
+          kind: 'Local',
+        },
+        {
+          dish: 'Black cuttlefish risotto',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Chickpea & wild fennel salad',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Čara karst field, Korčula'],
@@ -432,28 +713,51 @@ export const wines: Wine[] = [
         facts: '2.9 ha · two islands',
       },
       related: [
-        { id: 'zlahtina-bura', why: 'Another island white' },
-        { id: 'malvazija-bijela', why: 'Fresher, from Istria' },
-        { id: 'babic-kamenjar', why: 'Same family, red' },
-        { id: 'oblica-island-blend', why: 'Island oil for the fish' },
+        {
+          id: 'zlahtina-bura',
+          why: 'Another island white',
+        },
+        {
+          id: 'malvazija-bijela',
+          why: 'Fresher, from Istria',
+        },
+        {
+          id: 'babic-kamenjar',
+          why: 'Same family, red',
+        },
+        {
+          id: 'oblica-island-blend',
+          why: 'Island oil for the fish',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'zlahtina-bura',
-    name: 'Žlahtina “Bura” 2024',
+    name: 'Žlahtina “Bura”',
     growerId: 'vina-lucic',
     growerName: 'Vina Lučić',
     grape: 'Žlahtina',
     region: 'Krk',
     type: 'White',
     abv: '11.5%',
-    price: 17,
-    left: 140,
+    vintages: [
+      {
+        vintage: '2023',
+        price: 18,
+        left: 11,
+      },
+      {
+        vintage: '2024',
+        price: 17,
+        left: 140,
+        isDefault: true,
+      },
+    ],
     glass: 'var(--glass-straw)',
     cap: 'var(--wine)',
-    releaseRank: 6,
+    releaseDate: '2025-08-27T10:00:00.000Z',
     so2: 20,
     so2Added: true,
     vegan: true,
@@ -464,12 +768,10 @@ export const wines: Wine[] = [
       story:
         'Named after the cold north wind that dries the Vrbnik field within an hour of rain. Mirela Lučić picks her Žlahtina by hand, presses it gently and ferments it cool in steel with native yeast, then bottles in spring to keep it light, salty and young. Fined with bentonite clay only, so it stays vegan.',
       tags: ['Hand harvest', 'Vegan', 'Wild ferment', '20 mg/L total SO₂'],
-      vintages: [
-        { year: '2023', price: 18, info: '€18 · 11 left' },
-        { year: '2024', price: 17, info: '€17 · 140 left' },
-      ],
-      defaultVintage: '2024',
-      drinkWindow: { label: 'Best 2025 – 2026', cells: [1, 2, 2, 1, 0, 0, 0, 0] },
+      drinkWindow: {
+        label: 'Best 2025 – 2026',
+        cells: [1, 2, 2, 1, 0, 0, 0, 0],
+      },
       tasting: {
         nose: 'Ripe pear, acacia blossom and sea spray, with a flick of lemon balm.',
         palate:
@@ -478,18 +780,54 @@ export const wines: Wine[] = [
           'Short to medium, salty and clean, with a faint almond bitterness. A wine for the first glass of the evening.',
       },
       structure: [
-        { label: 'Body', value: 3, word: 'Light' },
-        { label: 'Acidity', value: 6, word: 'Fresh' },
-        { label: 'Tannin', value: 0, word: 'None' },
-        { label: 'Fruit', value: 5, word: 'Orchard' },
-        { label: 'Funk', value: 1, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 3,
+          word: 'Light',
+        },
+        {
+          label: 'Acidity',
+          value: 6,
+          word: 'Fresh',
+        },
+        {
+          label: 'Tannin',
+          value: 0,
+          word: 'None',
+        },
+        {
+          label: 'Fruit',
+          value: 5,
+          word: 'Orchard',
+        },
+        {
+          label: 'Funk',
+          value: 1,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '8–10°', decant: 'No', glass: 'White wine' },
+      serve: {
+        temp: '8–10°',
+        decant: 'No',
+        glass: 'White wine',
+      },
       pairings: [
-        { dish: 'Kvarner scampi buzara', kind: 'Classic' },
-        { dish: 'Krk šurlice with prawns', kind: 'Local' },
-        { dish: 'Grilled sardines & lemon', kind: 'Weekend' },
-        { dish: 'Blitva and potatoes in olive oil', kind: 'Veggie' },
+        {
+          dish: 'Kvarner scampi buzara',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Krk šurlice with prawns',
+          kind: 'Local',
+        },
+        {
+          dish: 'Grilled sardines & lemon',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Blitva and potatoes in olive oil',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Vrbničko polje, the field below town'],
@@ -518,28 +856,51 @@ export const wines: Wine[] = [
         facts: '2.2 ha · 2nd generation',
       },
       related: [
-        { id: 'zlahtina-pjena-mora', why: 'Same grape, with bubbles' },
-        { id: 'posip-kamen', why: 'Rounder island white' },
-        { id: 'skrlet-mahovina', why: 'Another low-alcohol white' },
-        { id: 'levantinka-solta', why: 'Herbal island oil' },
+        {
+          id: 'zlahtina-pjena-mora',
+          why: 'Same grape, with bubbles',
+        },
+        {
+          id: 'posip-kamen',
+          why: 'Rounder island white',
+        },
+        {
+          id: 'skrlet-mahovina',
+          why: 'Another low-alcohol white',
+        },
+        {
+          id: 'levantinka-solta',
+          why: 'Herbal island oil',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'opolo-svila',
-    name: 'Opolo “Svila” 2024',
+    name: 'Opolo “Svila”',
     growerId: 'podrum-kos',
     growerName: 'Podrum Kos',
     grape: 'Plavac Mali',
     region: 'Dalmatia',
     type: 'Rosé',
     abv: '12%',
-    price: 18,
-    left: 76,
+    vintages: [
+      {
+        vintage: '2024',
+        price: 18,
+        left: 76,
+        isDefault: true,
+      },
+      {
+        vintage: '2025',
+        price: 18,
+        preOrder: 'Apr',
+      },
+    ],
     glass: 'var(--glass-rose)',
     cap: 'var(--wine)',
-    releaseRank: 7,
+    releaseDate: '2025-08-20T10:00:00.000Z',
     so2: 15,
     so2Added: true,
     vegan: true,
@@ -550,30 +911,64 @@ export const wines: Wine[] = [
       story:
         'Opolo is the Dalmatian name for a pale, dry rosé; “svila” means silk. Marija Kos makes it from Plavac Mali on the flat Polje parcel inland, always the first grapes picked each September. A few hours on skins for colour, then pressed and fermented in steel. Bright, dry and made to be chilled.',
       tags: ['Direct press', 'Vegan', 'Wild ferment', '15 mg/L total SO₂'],
-      vintages: [
-        { year: '2024', price: 18, info: '€18 · 76 left' },
-        { year: '2025', price: 18, info: 'Pre-order · Apr' },
-      ],
-      defaultVintage: '2024',
-      drinkWindow: { label: 'Best 2025 – 2026', cells: [1, 2, 2, 0, 0, 0, 0, 0] },
+      drinkWindow: {
+        label: 'Best 2025 – 2026',
+        cells: [1, 2, 2, 0, 0, 0, 0, 0],
+      },
       tasting: {
         nose: 'Wild strawberry, blood orange and pink grapefruit, with dried rose petals and wet chalk.',
         palate: 'Dry, light and silky, with crunchy red fruit and just enough Plavac grip to stand up to food.',
         finish: 'Clean and chalky, with a little orange-peel bitterness and a salty edge.',
       },
       structure: [
-        { label: 'Body', value: 3, word: 'Light' },
-        { label: 'Acidity', value: 7, word: 'Bright' },
-        { label: 'Tannin', value: 2, word: 'Soft' },
-        { label: 'Fruit', value: 7, word: 'Red' },
-        { label: 'Funk', value: 1, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 3,
+          word: 'Light',
+        },
+        {
+          label: 'Acidity',
+          value: 7,
+          word: 'Bright',
+        },
+        {
+          label: 'Tannin',
+          value: 2,
+          word: 'Soft',
+        },
+        {
+          label: 'Fruit',
+          value: 7,
+          word: 'Red',
+        },
+        {
+          label: 'Funk',
+          value: 1,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '8–10°', decant: 'No', glass: 'Wide white' },
+      serve: {
+        temp: '8–10°',
+        decant: 'No',
+        glass: 'Wide white',
+      },
       pairings: [
-        { dish: 'Octopus salad with capers', kind: 'Classic' },
-        { dish: 'Dalmatian pršut & melon', kind: 'Local' },
-        { dish: 'Chargrilled prawns, garlic & parsley', kind: 'Weekend' },
-        { dish: 'Tomato, peach & burrata salad', kind: 'Veggie' },
+        {
+          dish: 'Octopus salad with capers',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Dalmatian pršut & melon',
+          kind: 'Local',
+        },
+        {
+          dish: 'Chargrilled prawns, garlic & parsley',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Tomato, peach & burrata salad',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Polje, the inland parcel'],
@@ -602,28 +997,56 @@ export const wines: Wine[] = [
         facts: '2.4 ha · father and daughter',
       },
       related: [
-        { id: 'plavac-mali-gornji', why: 'Same grape, as a fresh red' },
-        { id: 'grasevina-pet-nat-pjena', why: 'Another fridge bottle' },
-        { id: 'zlahtina-bura', why: 'Light and salty' },
-        { id: 'teran-crvena-zemlja', why: 'A red to chill' },
+        {
+          id: 'plavac-mali-gornji',
+          why: 'Same grape, as a fresh red',
+        },
+        {
+          id: 'grasevina-pet-nat-pjena',
+          why: 'Another fridge bottle',
+        },
+        {
+          id: 'zlahtina-bura',
+          why: 'Light and salty',
+        },
+        {
+          id: 'teran-crvena-zemlja',
+          why: 'A red to chill',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'babic-kamenjar',
-    name: 'Babić “Kamenjar” 2022',
+    name: 'Babić “Kamenjar”',
     growerId: 'stari-brijeg',
     growerName: 'Stari Brijeg',
     grape: 'Babić',
     region: 'Primošten',
     type: 'Red',
     abv: '13.5%',
-    price: 28,
-    left: 41,
+    vintages: [
+      {
+        vintage: '2021',
+        price: 32,
+        left: 8,
+      },
+      {
+        vintage: '2022',
+        price: 28,
+        left: 41,
+        isDefault: true,
+      },
+      {
+        vintage: '2023',
+        price: 27,
+        preOrder: 'Feb',
+      },
+    ],
     glass: 'var(--glass-garnet)',
     cap: 'var(--paper)',
-    releaseRank: 8,
+    releaseDate: '2025-08-13T10:00:00.000Z',
     so2: 26,
     so2Added: true,
     vegan: false,
@@ -634,13 +1057,10 @@ export const wines: Wine[] = [
       story:
         'Kamenjar is the oldest plot above Primošten: a patchwork of tiny vineyards walled in white limestone, planted by the Kovač family in 1952. Ante picks the Babić by hand, ferments it two weeks on skins with native yeast and ages it eighteen months in old oak. Fined with egg white before bottling.',
       tags: ['Dry-stone terraces', 'Not vegan', 'Wild ferment', '26 mg/L total SO₂'],
-      vintages: [
-        { year: '2021', price: 32, info: '€32 · 8 left' },
-        { year: '2022', price: 28, info: '€28 · 41 left' },
-        { year: '2023', price: 27, info: 'Pre-order · Feb' },
-      ],
-      defaultVintage: '2022',
-      drinkWindow: { label: 'Best 2025 – 2031', cells: [0, 2, 2, 2, 2, 2, 2, 1] },
+      drinkWindow: {
+        label: 'Best 2025 – 2031',
+        cells: [0, 2, 2, 2, 2, 2, 2, 1],
+      },
       tasting: {
         nose: 'Black olive, ripe plum and garrigue (wild sage, rosemary, immortelle) over a smoky, flinty note.',
         palate:
@@ -648,18 +1068,54 @@ export const wines: Wine[] = [
         finish: 'Long, herbal and slightly salty, with dark chocolate and crushed stone.',
       },
       structure: [
-        { label: 'Body', value: 7, word: 'Medium-full' },
-        { label: 'Acidity', value: 6, word: 'Fresh' },
-        { label: 'Tannin', value: 7, word: 'Firm' },
-        { label: 'Fruit', value: 6, word: 'Black' },
-        { label: 'Funk', value: 1, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 7,
+          word: 'Medium-full',
+        },
+        {
+          label: 'Acidity',
+          value: 6,
+          word: 'Fresh',
+        },
+        {
+          label: 'Tannin',
+          value: 7,
+          word: 'Firm',
+        },
+        {
+          label: 'Fruit',
+          value: 6,
+          word: 'Black',
+        },
+        {
+          label: 'Funk',
+          value: 1,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '16–17°', decant: '45 min', glass: 'Burgundy' },
+      serve: {
+        temp: '16–17°',
+        decant: '45 min',
+        glass: 'Burgundy',
+      },
       pairings: [
-        { dish: 'Šporki makaruli', kind: 'Classic' },
-        { dish: 'Spit-roast lamb, Primošten style', kind: 'Local' },
-        { dish: 'Wild boar sausages from the grill', kind: 'Weekend' },
-        { dish: 'Peppers stuffed with rice & herbs', kind: 'Veggie' },
+        {
+          dish: 'Šporki makaruli',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Spit-roast lamb, Primošten style',
+          kind: 'Local',
+        },
+        {
+          dish: 'Wild boar sausages from the grill',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Peppers stuffed with rice & herbs',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Kamenjar, walled squares above Primošten'],
@@ -687,28 +1143,51 @@ export const wines: Wine[] = [
         facts: '2.9 ha · 3rd generation',
       },
       related: [
-        { id: 'teran-crvena-zemlja', why: 'Brighter, from red earth' },
-        { id: 'plavac-mali-brijeg', why: 'Bigger and saltier' },
-        { id: 'prosek-strpljenje', why: 'Same grape, sun-dried' },
-        { id: 'crljenak-kastela', why: 'Another Dalmatian native' },
+        {
+          id: 'teran-crvena-zemlja',
+          why: 'Brighter, from red earth',
+        },
+        {
+          id: 'plavac-mali-brijeg',
+          why: 'Bigger and saltier',
+        },
+        {
+          id: 'prosek-strpljenje',
+          why: 'Same grape, sun-dried',
+        },
+        {
+          id: 'crljenak-kastela',
+          why: 'Another Dalmatian native',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'skrlet-mahovina',
-    name: 'Škrlet “Mahovina” 2023',
+    name: 'Škrlet “Mahovina”',
     growerId: 'tri-bure',
     growerName: 'Tri Bure',
     grape: 'Škrlet',
     region: 'Moslavina',
     type: 'White',
     abv: '11%',
-    price: 16,
-    left: 180,
+    vintages: [
+      {
+        vintage: '2023',
+        price: 16,
+        left: 180,
+        isDefault: true,
+      },
+      {
+        vintage: '2024',
+        price: 16,
+        preOrder: 'Mar',
+      },
+    ],
     glass: 'var(--olive-300)',
     cap: 'var(--ink)',
-    releaseRank: 9,
+    releaseDate: '2025-08-06T10:00:00.000Z',
     so2: 9,
     so2Added: true,
     vegan: true,
@@ -719,30 +1198,64 @@ export const wines: Wine[] = [
       story:
         '“Mahovina” means moss, which covers the north side of every post in Marko Babić’s rented plot in Moslavina. Škrlet is a rare native grape of the region: light, green and low in alcohol. Wild-fermented in old barrels in the Kutjevo garage, left on its lees over winter and bottled with the smallest dose of sulphur.',
       tags: ['Rare native grape', 'Vegan', 'Wild ferment', '9 mg/L total SO₂'],
-      vintages: [
-        { year: '2023', price: 16, info: '€16 · 180 left' },
-        { year: '2024', price: 16, info: 'Pre-order · Mar' },
-      ],
-      defaultVintage: '2023',
-      drinkWindow: { label: 'Best 2024 – 2026', cells: [2, 2, 2, 1, 0, 0, 0, 0] },
+      drinkWindow: {
+        label: 'Best 2024 – 2026',
+        cells: [2, 2, 2, 1, 0, 0, 0, 0],
+      },
       tasting: {
         nose: 'Lovage, sorrel and cut grass, with quince, green plum and a faint mossy, forest-floor note.',
         palate: 'Light and lean at only 11%, with zesty acidity and a soft, slightly creamy middle from the lees.',
         finish: 'Crisp and herbal, with a little quince-skin bitterness. Gone before you notice.',
       },
       structure: [
-        { label: 'Body', value: 2, word: 'Light' },
-        { label: 'Acidity', value: 8, word: 'Zesty' },
-        { label: 'Tannin', value: 1, word: 'None' },
-        { label: 'Fruit', value: 4, word: 'Green' },
-        { label: 'Funk', value: 3, word: 'Light' },
+        {
+          label: 'Body',
+          value: 2,
+          word: 'Light',
+        },
+        {
+          label: 'Acidity',
+          value: 8,
+          word: 'Zesty',
+        },
+        {
+          label: 'Tannin',
+          value: 1,
+          word: 'None',
+        },
+        {
+          label: 'Fruit',
+          value: 4,
+          word: 'Green',
+        },
+        {
+          label: 'Funk',
+          value: 3,
+          word: 'Light',
+        },
       ],
-      serve: { temp: '8–10°', decant: 'No', glass: 'Small white' },
+      serve: {
+        temp: '8–10°',
+        decant: 'No',
+        glass: 'Small white',
+      },
       pairings: [
-        { dish: 'Štrukli with fresh cheese', kind: 'Classic' },
-        { dish: 'Fried river fish from the Lonja', kind: 'Local' },
-        { dish: 'Chicken salad with pumpkin-seed oil', kind: 'Weekend' },
-        { dish: 'Spring asparagus & soft eggs', kind: 'Veggie' },
+        {
+          dish: 'Štrukli with fresh cheese',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Fried river fish from the Lonja',
+          kind: 'Local',
+        },
+        {
+          dish: 'Chicken salad with pumpkin-seed oil',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Spring asparagus & soft eggs',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Moslavina, rows rented from a retired teacher'],
@@ -770,28 +1283,56 @@ export const wines: Wine[] = [
         facts: '1.6 ha · eleven barrels',
       },
       related: [
-        { id: 'zlahtina-bura', why: 'Another light white' },
-        { id: 'grasevina-les', why: 'Same garage, fuller' },
-        { id: 'malvazija-sedam-dana', why: 'Lunch wine with grip' },
-        { id: 'leccino-vodnjan', why: 'A gentle oil for greens' },
+        {
+          id: 'zlahtina-bura',
+          why: 'Another light white',
+        },
+        {
+          id: 'grasevina-les',
+          why: 'Same garage, fuller',
+        },
+        {
+          id: 'malvazija-sedam-dana',
+          why: 'Lunch wine with grip',
+        },
+        {
+          id: 'leccino-vodnjan',
+          why: 'A gentle oil for greens',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'malvazija-amfora',
-    name: 'Malvazija “Amfora” 2021',
+    name: 'Malvazija “Amfora”',
     growerId: 'obitelj-radic',
     growerName: 'Obitelj Radić',
     grape: 'Malvazija',
     region: 'Istria',
     type: 'Orange',
     abv: '13%',
-    price: 42,
-    left: 18,
+    vintages: [
+      {
+        vintage: '2020',
+        price: 46,
+        left: 5,
+      },
+      {
+        vintage: '2021',
+        price: 42,
+        left: 18,
+        isDefault: true,
+      },
+      {
+        vintage: '2022',
+        price: 42,
+        preOrder: 'Jun',
+      },
+    ],
     glass: 'var(--glass-copper)',
     cap: 'var(--wine)',
-    releaseRank: 10,
+    releaseDate: '2025-07-30T10:00:00.000Z',
     so2: 4,
     so2Added: false,
     vegan: true,
@@ -802,13 +1343,10 @@ export const wines: Wine[] = [
       story:
         'From the oldest rows of Stari vinograd. Luka Radić fills the two clay amphorae buried under the old stable floor with destemmed Malvazija and seals them for six months, skins and all. Then a year in old acacia, bottled unfined, unfiltered and with no sulphur added at any point.',
       tags: ['Amphora-aged', 'Vegan', 'Zero added SO₂ · 4 mg/L natural', 'Magnum available'],
-      vintages: [
-        { year: '2020', price: 46, info: '€46 · 5 left' },
-        { year: '2021', price: 42, info: '€42 · 18 left' },
-        { year: '2022', price: 42, info: 'Pre-order · Jun' },
-      ],
-      defaultVintage: '2021',
-      drinkWindow: { label: 'Best 2025 – 2032', cells: [1, 2, 2, 2, 2, 2, 2, 2] },
+      drinkWindow: {
+        label: 'Best 2025 – 2032',
+        cells: [1, 2, 2, 2, 2, 2, 2, 2],
+      },
       tasting: {
         nose: 'Honeycomb, black tea and dried orange peel, then beeswax, walnut and an earthy whiff of the clay.',
         palate:
@@ -816,18 +1354,54 @@ export const wines: Wine[] = [
         finish: 'Very long and tea-like, with orange pith and toasted nuts. Serve it like a red.',
       },
       structure: [
-        { label: 'Body', value: 7, word: 'Full' },
-        { label: 'Acidity', value: 5, word: 'Moderate' },
-        { label: 'Tannin', value: 7, word: 'Grippy' },
-        { label: 'Fruit', value: 5, word: 'Dried' },
-        { label: 'Funk', value: 5, word: 'Wild' },
+        {
+          label: 'Body',
+          value: 7,
+          word: 'Full',
+        },
+        {
+          label: 'Acidity',
+          value: 5,
+          word: 'Moderate',
+        },
+        {
+          label: 'Tannin',
+          value: 7,
+          word: 'Grippy',
+        },
+        {
+          label: 'Fruit',
+          value: 5,
+          word: 'Dried',
+        },
+        {
+          label: 'Funk',
+          value: 5,
+          word: 'Wild',
+        },
       ],
-      serve: { temp: '14–16°', decant: '1 hour', glass: 'Burgundy' },
+      serve: {
+        temp: '14–16°',
+        decant: '1 hour',
+        glass: 'Burgundy',
+      },
       pairings: [
-        { dish: 'Aged Istrian ewe’s cheese & honey', kind: 'Classic' },
-        { dish: 'Pljukanci with black truffle', kind: 'Local' },
-        { dish: 'Slow-roast pork with quince', kind: 'Weekend' },
-        { dish: 'Roast celeriac, brown butter & hazelnut', kind: 'Veggie' },
+        {
+          dish: 'Aged Istrian ewe’s cheese & honey',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Pljukanci with black truffle',
+          kind: 'Local',
+        },
+        {
+          dish: 'Slow-roast pork with quince',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Roast celeriac, brown butter & hazelnut',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Stari vinograd, the oldest rows'],
@@ -856,28 +1430,51 @@ export const wines: Wine[] = [
         facts: '4.8 ha · organic since 2021',
       },
       related: [
-        { id: 'malvazija-sedam-dana', why: 'Seven days, not six months' },
-        { id: 'muskat-pod-crkvom', why: 'Same cellar, lighter' },
-        { id: 'babic-kamenjar', why: 'A red with the same grip' },
-        { id: 'istarska-bjelica', why: 'Bold oil for aged cheese' },
+        {
+          id: 'malvazija-sedam-dana',
+          why: 'Seven days, not six months',
+        },
+        {
+          id: 'muskat-pod-crkvom',
+          why: 'Same cellar, lighter',
+        },
+        {
+          id: 'babic-kamenjar',
+          why: 'A red with the same grip',
+        },
+        {
+          id: 'istarska-bjelica',
+          why: 'Bold oil for aged cheese',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'crljenak-kastela',
-    name: 'Crljenak “Kaštela” 2022',
+    name: 'Crljenak “Kaštela”',
     growerId: 'vina-lucic',
     growerName: 'Vina Lučić',
     grape: 'Crljenak',
     region: 'Dalmatia',
     type: 'Red',
     abv: '14%',
-    price: 34,
-    left: 33,
+    vintages: [
+      {
+        vintage: '2021',
+        price: 36,
+        left: 7,
+      },
+      {
+        vintage: '2022',
+        price: 34,
+        left: 33,
+        isDefault: true,
+      },
+    ],
     glass: 'var(--glass-red)',
     cap: 'var(--olive-300)',
-    releaseRank: 11,
+    releaseDate: '2025-07-23T10:00:00.000Z',
     so2: 28,
     so2Added: true,
     vegan: false,
@@ -888,12 +1485,10 @@ export const wines: Wine[] = [
       story:
         'Crljenak Kaštelanski is the grape DNA research identified as the origin of Zinfandel. Mirela Lučić leases a few rows of it from a cousin near Kaštela, on the mainland, ferments them on native yeast and ages the wine fifteen months in old barriques. Fined with egg white. Ripe, peppery and nothing like California.',
       tags: ['The original Zinfandel', 'Leased rows', 'Wild ferment', '28 mg/L total SO₂'],
-      vintages: [
-        { year: '2021', price: 36, info: '€36 · 7 left' },
-        { year: '2022', price: 34, info: '€34 · 33 left' },
-      ],
-      defaultVintage: '2022',
-      drinkWindow: { label: 'Best 2025 – 2030', cells: [0, 2, 2, 2, 2, 2, 1, 0] },
+      drinkWindow: {
+        label: 'Best 2025 – 2030',
+        cells: [0, 2, 2, 2, 2, 2, 1, 0],
+      },
       tasting: {
         nose: 'Bramble, black cherry and cracked black pepper, with dried oregano, violet and a whiff of warm tar.',
         palate:
@@ -901,18 +1496,54 @@ export const wines: Wine[] = [
         finish: 'Peppery and long, with a sweet-spice edge from old oak and a little dried-herb bitterness.',
       },
       structure: [
-        { label: 'Body', value: 8, word: 'Full' },
-        { label: 'Acidity', value: 6, word: 'Fresh' },
-        { label: 'Tannin', value: 6, word: 'Round' },
-        { label: 'Fruit', value: 8, word: 'Black' },
-        { label: 'Funk', value: 1, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 8,
+          word: 'Full',
+        },
+        {
+          label: 'Acidity',
+          value: 6,
+          word: 'Fresh',
+        },
+        {
+          label: 'Tannin',
+          value: 6,
+          word: 'Round',
+        },
+        {
+          label: 'Fruit',
+          value: 8,
+          word: 'Black',
+        },
+        {
+          label: 'Funk',
+          value: 1,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '15–17°', decant: '40 min', glass: 'Large red' },
+      serve: {
+        temp: '15–17°',
+        decant: '40 min',
+        glass: 'Large red',
+      },
       pairings: [
-        { dish: 'Ćevapi with ajvar & onion', kind: 'Classic' },
-        { dish: 'Drniš pršut & black olives', kind: 'Local' },
-        { dish: 'Beef cheeks braised in red wine', kind: 'Weekend' },
-        { dish: 'Soparnik, the Dalmatian chard pie', kind: 'Veggie' },
+        {
+          dish: 'Ćevapi with ajvar & onion',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Drniš pršut & black olives',
+          kind: 'Local',
+        },
+        {
+          dish: 'Beef cheeks braised in red wine',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Soparnik, the Dalmatian chard pie',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Kaštela, rows leased from a cousin'],
@@ -940,28 +1571,51 @@ export const wines: Wine[] = [
         facts: '2.2 ha · since 1979',
       },
       related: [
-        { id: 'plavac-mali-brijeg', why: 'Its Pelješac offspring' },
-        { id: 'babic-kamenjar', why: 'Same coast, more herbs' },
-        { id: 'teran-crvena-zemlja', why: 'Lighter, more acid' },
-        { id: 'zlahtina-pjena-mora', why: 'Same cellar, to start with' },
+        {
+          id: 'plavac-mali-brijeg',
+          why: 'Its Pelješac offspring',
+        },
+        {
+          id: 'babic-kamenjar',
+          why: 'Same coast, more herbs',
+        },
+        {
+          id: 'teran-crvena-zemlja',
+          why: 'Lighter, more acid',
+        },
+        {
+          id: 'zlahtina-pjena-mora',
+          why: 'Same cellar, to start with',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'muskat-zlatna',
-    name: 'Muškat “Zlatna” 2023',
+    name: 'Muškat “Zlatna”',
     growerId: 'vina-brajko',
     growerName: 'Vina Brajko',
     grape: 'Muškat Momjanski',
     region: 'Istria',
     type: 'White',
     abv: '12%',
-    price: 21,
-    left: 88,
+    vintages: [
+      {
+        vintage: '2023',
+        price: 21,
+        left: 88,
+        isDefault: true,
+      },
+      {
+        vintage: '2024',
+        price: 21,
+        preOrder: 'Mar',
+      },
+    ],
     glass: 'var(--glass-straw)',
     cap: 'var(--wine)',
-    releaseRank: 12,
+    releaseDate: '2025-07-16T10:00:00.000Z',
     so2: 14,
     so2Added: true,
     vegan: true,
@@ -972,12 +1626,10 @@ export const wines: Wine[] = [
       story:
         '“Zlatna” means golden, the colour Muškat turns on the little Kod Kapelice plot by the chapel above Motovun. Ana Brajko picks it early, presses whole bunches and ferments the juice fully dry in steel on its own yeast. All the perfume of Muškat, none of the sugar.',
       tags: ['Bone dry', 'Vegan', 'Wild ferment', '14 mg/L total SO₂'],
-      vintages: [
-        { year: '2023', price: 21, info: '€21 · 88 left' },
-        { year: '2024', price: 21, info: 'Pre-order · Mar' },
-      ],
-      defaultVintage: '2023',
-      drinkWindow: { label: 'Drink 2024 – 2026', cells: [2, 2, 2, 0, 0, 0, 0, 0] },
+      drinkWindow: {
+        label: 'Drink 2024 – 2026',
+        cells: [2, 2, 2, 0, 0, 0, 0, 0],
+      },
       tasting: {
         nose: 'Elderflower, orange zest and fresh white grape, with lychee, sage and a hint of rose.',
         palate:
@@ -985,18 +1637,54 @@ export const wines: Wine[] = [
         finish: 'Clean and floral, with a bitter orange-peel snap and a whisper of white pepper.',
       },
       structure: [
-        { label: 'Body', value: 3, word: 'Light' },
-        { label: 'Acidity', value: 7, word: 'Crisp' },
-        { label: 'Tannin', value: 0, word: 'None' },
-        { label: 'Fruit', value: 8, word: 'Floral' },
-        { label: 'Funk', value: 1, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 3,
+          word: 'Light',
+        },
+        {
+          label: 'Acidity',
+          value: 7,
+          word: 'Crisp',
+        },
+        {
+          label: 'Tannin',
+          value: 0,
+          word: 'None',
+        },
+        {
+          label: 'Fruit',
+          value: 8,
+          word: 'Floral',
+        },
+        {
+          label: 'Funk',
+          value: 1,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '8–10°', decant: 'No', glass: 'Tulip' },
+      serve: {
+        temp: '8–10°',
+        decant: 'No',
+        glass: 'Tulip',
+      },
       pairings: [
-        { dish: 'Adriatic prawns, lemon & garlic', kind: 'Classic' },
-        { dish: 'Wild asparagus fritaja', kind: 'Local' },
-        { dish: 'Anything spicy: curry, laksa', kind: 'Weekend' },
-        { dish: 'Fresh goat’s cheese & honey', kind: 'Veggie' },
+        {
+          dish: 'Adriatic prawns, lemon & garlic',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Wild asparagus fritaja',
+          kind: 'Local',
+        },
+        {
+          dish: 'Anything spicy: curry, laksa',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Fresh goat’s cheese & honey',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Kod Kapelice, beside the chapel'],
@@ -1025,27 +1713,50 @@ export const wines: Wine[] = [
         facts: '3.2 ha · 4 plots',
       },
       related: [
-        { id: 'muskat-pod-crkvom', why: 'Muškat from Momjan, on skins' },
-        { id: 'malvazija-bijela', why: 'Same cellar, Malvazija' },
-        { id: 'zlahtina-bura', why: 'Salty, from the islands' },
-        { id: 'olio-nuovo-unfiltered', why: 'Same family, new oil' },
+        {
+          id: 'muskat-pod-crkvom',
+          why: 'Muškat from Momjan, on skins',
+        },
+        {
+          id: 'malvazija-bijela',
+          why: 'Same cellar, Malvazija',
+        },
+        {
+          id: 'zlahtina-bura',
+          why: 'Salty, from the islands',
+        },
+        {
+          id: 'olio-nuovo-unfiltered',
+          why: 'Same family, new oil',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'malvazija-bijela',
-    name: 'Malvazija “Bijela” 2024',
+    name: 'Malvazija “Bijela”',
     growerId: 'vina-brajko',
     growerName: 'Vina Brajko',
     grape: 'Malvazija',
     region: 'Istria',
     type: 'White',
     abv: '12%',
-    price: 21,
+    vintages: [
+      {
+        vintage: '2024',
+        price: 21,
+        isDefault: true,
+      },
+      {
+        vintage: '2025',
+        price: 21,
+        preOrder: 'Apr',
+      },
+    ],
     glass: 'var(--olive-300)',
     cap: 'var(--wine)',
-    releaseRank: 13,
+    releaseDate: '2025-07-09T10:00:00.000Z',
     unlisted: true,
     so2: 16,
     so2Added: true,
@@ -1057,12 +1768,10 @@ export const wines: Wine[] = [
       story:
         'Named after the Bijela plot, white flysch marl on the slope across the valley from Motovun. Ana Brajko presses the Malvazija gently, ferments it cool in stainless steel on native yeast and leaves it five months on its fine lees. Fresh, salty and made for the table.',
       tags: ['Stainless steel', 'Vegan', 'Wild ferment', '16 mg/L total SO₂'],
-      vintages: [
-        { year: '2024', price: 21, info: '€21 · In stock' },
-        { year: '2025', price: 21, info: 'Pre-order · Apr' },
-      ],
-      defaultVintage: '2024',
-      drinkWindow: { label: 'Best 2025 – 2027', cells: [1, 2, 2, 2, 0, 0, 0, 0] },
+      drinkWindow: {
+        label: 'Best 2025 – 2027',
+        cells: [1, 2, 2, 2, 0, 0, 0, 0],
+      },
       tasting: {
         nose: 'Pear, acacia blossom and fresh almond, with a bright note of lemon and a little wet stone.',
         palate:
@@ -1070,18 +1779,54 @@ export const wines: Wine[] = [
         finish: 'Salty and quite long for a young white, with a faint bitter-almond twist. Classic Istrian Malvazija.',
       },
       structure: [
-        { label: 'Body', value: 4, word: 'Medium-light' },
-        { label: 'Acidity', value: 6, word: 'Fresh' },
-        { label: 'Tannin', value: 0, word: 'None' },
-        { label: 'Fruit', value: 6, word: 'Orchard' },
-        { label: 'Funk', value: 1, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 4,
+          word: 'Medium-light',
+        },
+        {
+          label: 'Acidity',
+          value: 6,
+          word: 'Fresh',
+        },
+        {
+          label: 'Tannin',
+          value: 0,
+          word: 'None',
+        },
+        {
+          label: 'Fruit',
+          value: 6,
+          word: 'Orchard',
+        },
+        {
+          label: 'Funk',
+          value: 1,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '9–11°', decant: 'No', glass: 'White wine' },
+      serve: {
+        temp: '9–11°',
+        decant: 'No',
+        glass: 'White wine',
+      },
       pairings: [
-        { dish: 'Grilled branzino with olive oil', kind: 'Classic' },
-        { dish: 'Istrian maneštra with beans', kind: 'Local' },
-        { dish: 'Mussels buzara & crusty bread', kind: 'Weekend' },
-        { dish: 'Fennel & orange salad', kind: 'Veggie' },
+        {
+          dish: 'Grilled branzino with olive oil',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Istrian maneštra with beans',
+          kind: 'Local',
+        },
+        {
+          dish: 'Mussels buzara & crusty bread',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Fennel & orange salad',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Bijela, across the valley'],
@@ -1110,28 +1855,51 @@ export const wines: Wine[] = [
         facts: '3.2 ha · since 1962',
       },
       related: [
-        { id: 'malvazija-sedam-dana', why: 'Same grape, on skins' },
-        { id: 'posip-kamen', why: 'Rounder, from Korčula' },
-        { id: 'muskat-zlatna', why: 'Same cellar, more perfume' },
-        { id: 'buza-grove-14', why: 'Same family, everyday oil' },
+        {
+          id: 'malvazija-sedam-dana',
+          why: 'Same grape, on skins',
+        },
+        {
+          id: 'posip-kamen',
+          why: 'Rounder, from Korčula',
+        },
+        {
+          id: 'muskat-zlatna',
+          why: 'Same cellar, more perfume',
+        },
+        {
+          id: 'buza-grove-14',
+          why: 'Same family, everyday oil',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'muskat-pod-crkvom',
-    name: 'Muškat “Pod crkvom” 2023',
+    name: 'Muškat “Pod crkvom”',
     growerId: 'obitelj-radic',
     growerName: 'Obitelj Radić',
     grape: 'Muškat Momjanski',
     region: 'Istria',
     type: 'White',
     abv: '12%',
-    price: 23,
-    left: 58,
+    vintages: [
+      {
+        vintage: '2023',
+        price: 23,
+        left: 58,
+        isDefault: true,
+      },
+      {
+        vintage: '2024',
+        price: 23,
+        preOrder: 'Apr',
+      },
+    ],
     glass: 'var(--glass-straw)',
     cap: 'var(--wine)',
-    releaseRank: 14,
+    releaseDate: '2025-07-02T10:00:00.000Z',
     unlisted: true,
     so2: 17,
     so2Added: true,
@@ -1143,12 +1911,10 @@ export const wines: Wine[] = [
       story:
         '“Pod crkvom” means below the church: the plot sits just under Momjan’s chapel, on white marl. Muškat Momjanski is usually made sweet here. Petra and Luka Radić ferment it dry instead, after one night on skins for texture, then give it four months on lees in steel.',
       tags: ['Organic certified', 'Vegan', 'Dry Muškat', '17 mg/L total SO₂'],
-      vintages: [
-        { year: '2023', price: 23, info: '€23 · 58 left' },
-        { year: '2024', price: 23, info: 'Pre-order · Apr' },
-      ],
-      defaultVintage: '2023',
-      drinkWindow: { label: 'Best 2024 – 2027', cells: [2, 2, 2, 1, 0, 0, 0, 0] },
+      drinkWindow: {
+        label: 'Best 2024 – 2027',
+        cells: [2, 2, 2, 1, 0, 0, 0, 0],
+      },
       tasting: {
         nose: 'Rose petal, lime zest and sage, with white peach and a hint of cardamom.',
         palate:
@@ -1156,18 +1922,54 @@ export const wines: Wine[] = [
         finish: 'Medium, herbal and spicy, ending on lime peel and crushed sage.',
       },
       structure: [
-        { label: 'Body', value: 4, word: 'Light' },
-        { label: 'Acidity', value: 6, word: 'Fresh' },
-        { label: 'Tannin', value: 2, word: 'Light' },
-        { label: 'Fruit', value: 7, word: 'Floral' },
-        { label: 'Funk', value: 2, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 4,
+          word: 'Light',
+        },
+        {
+          label: 'Acidity',
+          value: 6,
+          word: 'Fresh',
+        },
+        {
+          label: 'Tannin',
+          value: 2,
+          word: 'Light',
+        },
+        {
+          label: 'Fruit',
+          value: 7,
+          word: 'Floral',
+        },
+        {
+          label: 'Funk',
+          value: 2,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '10°', decant: 'No', glass: 'Aromatic white' },
+      serve: {
+        temp: '10°',
+        decant: 'No',
+        glass: 'Aromatic white',
+      },
       pairings: [
-        { dish: 'Smoked trout with horseradish', kind: 'Classic' },
-        { dish: 'Istrian ombolo with fresh figs', kind: 'Local' },
-        { dish: 'Prawns with chilli & ginger', kind: 'Weekend' },
-        { dish: 'Ravioli with sage butter', kind: 'Veggie' },
+        {
+          dish: 'Smoked trout with horseradish',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Istrian ombolo with fresh figs',
+          kind: 'Local',
+        },
+        {
+          dish: 'Prawns with chilli & ginger',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Ravioli with sage butter',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Pod crkvom, below the chapel'],
@@ -1196,28 +1998,56 @@ export const wines: Wine[] = [
         facts: '4.8 ha · 3 plots',
       },
       related: [
-        { id: 'muskat-zlatna', why: 'Drier still, from Motovun' },
-        { id: 'malvazija-sedam-dana', why: 'Same family, on skins' },
-        { id: 'zlahtina-bura', why: 'Light and coastal' },
-        { id: 'rosinjola-early-harvest', why: 'Grown on the same hill' },
+        {
+          id: 'muskat-zlatna',
+          why: 'Drier still, from Motovun',
+        },
+        {
+          id: 'malvazija-sedam-dana',
+          why: 'Same family, on skins',
+        },
+        {
+          id: 'zlahtina-bura',
+          why: 'Light and coastal',
+        },
+        {
+          id: 'rosinjola-early-harvest',
+          why: 'Grown on the same hill',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'grasevina-les',
-    name: 'Graševina “Les” 2023',
+    name: 'Graševina “Les”',
     growerId: 'tri-bure',
     growerName: 'Tri Bure',
     grape: 'Graševina',
     region: 'Slavonia',
     type: 'White',
     abv: '12.5%',
-    price: 18,
-    left: 90,
+    vintages: [
+      {
+        vintage: '2022',
+        price: 19,
+        left: 15,
+      },
+      {
+        vintage: '2023',
+        price: 18,
+        left: 90,
+        isDefault: true,
+      },
+      {
+        vintage: '2024',
+        price: 18,
+        preOrder: 'Apr',
+      },
+    ],
     glass: 'var(--glass-straw)',
     cap: 'var(--olive-700)',
-    releaseRank: 15,
+    releaseDate: '2025-06-25T10:00:00.000Z',
     unlisted: true,
     so2: 19,
     so2Added: true,
@@ -1229,13 +2059,10 @@ export const wines: Wine[] = [
       story:
         '“Les” is Croatian for loess, the fine wind-blown soil on Marko Babić’s home slope above Kutjevo. This is his still Graševina: picked ripe by hand, fermented on native yeast in old Slavonian oak barrels and left on its lees until spring. Slavonia’s everyday grape, made slowly.',
       tags: ['Old oak barrels', 'Vegan', 'Wild ferment', '19 mg/L total SO₂'],
-      vintages: [
-        { year: '2022', price: 19, info: '€19 · 15 left' },
-        { year: '2023', price: 18, info: '€18 · 90 left' },
-        { year: '2024', price: 18, info: 'Pre-order · Apr' },
-      ],
-      defaultVintage: '2023',
-      drinkWindow: { label: 'Best 2025 – 2028', cells: [1, 2, 2, 2, 2, 0, 0, 0] },
+      drinkWindow: {
+        label: 'Best 2025 – 2028',
+        cells: [1, 2, 2, 2, 2, 0, 0, 0],
+      },
       tasting: {
         nose: 'Ripe pear, green almond and meadow flowers, with a little hay and baked apple from the old oak.',
         palate:
@@ -1243,18 +2070,54 @@ export const wines: Wine[] = [
         finish: 'Dry and medium-long, with the bitter-almond twist that makes Graševina so good at the table.',
       },
       structure: [
-        { label: 'Body', value: 5, word: 'Medium' },
-        { label: 'Acidity', value: 7, word: 'Fresh' },
-        { label: 'Tannin', value: 1, word: 'None' },
-        { label: 'Fruit', value: 6, word: 'Orchard' },
-        { label: 'Funk', value: 2, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 5,
+          word: 'Medium',
+        },
+        {
+          label: 'Acidity',
+          value: 7,
+          word: 'Fresh',
+        },
+        {
+          label: 'Tannin',
+          value: 1,
+          word: 'None',
+        },
+        {
+          label: 'Fruit',
+          value: 6,
+          word: 'Orchard',
+        },
+        {
+          label: 'Funk',
+          value: 2,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '10–12°', decant: 'No', glass: 'White Burgundy' },
+      serve: {
+        temp: '10–12°',
+        decant: 'No',
+        glass: 'White Burgundy',
+      },
       pairings: [
-        { dish: 'Roast duck with mlinci', kind: 'Classic' },
-        { dish: 'Šaran na rašljama, carp over the fire', kind: 'Local' },
-        { dish: 'Schnitzel & potato salad', kind: 'Weekend' },
-        { dish: 'Mushroom paprikaš with noodles', kind: 'Veggie' },
+        {
+          dish: 'Roast duck with mlinci',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Šaran na rašljama, carp over the fire',
+          kind: 'Local',
+        },
+        {
+          dish: 'Schnitzel & potato salad',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Mushroom paprikaš with noodles',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Stričev brijeg, upper rows'],
@@ -1282,28 +2145,51 @@ export const wines: Wine[] = [
         facts: '1.6 ha · 2 plots',
       },
       related: [
-        { id: 'grasevina-pet-nat-pjena', why: 'Same slope, with bubbles' },
-        { id: 'skrlet-mahovina', why: 'Lighter, from Moslavina' },
-        { id: 'malvazija-bijela', why: 'The Istrian equivalent' },
-        { id: 'posip-kamen', why: 'Rounder, from the coast' },
+        {
+          id: 'grasevina-pet-nat-pjena',
+          why: 'Same slope, with bubbles',
+        },
+        {
+          id: 'skrlet-mahovina',
+          why: 'Lighter, from Moslavina',
+        },
+        {
+          id: 'malvazija-bijela',
+          why: 'The Istrian equivalent',
+        },
+        {
+          id: 'posip-kamen',
+          why: 'Rounder, from the coast',
+        },
       ],
     },
   },
   {
     kind: 'wine',
     id: 'plavac-mali-gornji',
-    name: 'Plavac Mali “Gornji” 2022',
+    name: 'Plavac Mali “Gornji”',
     growerId: 'podrum-kos',
     growerName: 'Podrum Kos',
     grape: 'Plavac Mali',
     region: 'Dalmatia',
     type: 'Red',
     abv: '13.5%',
-    price: 22,
-    left: 120,
+    vintages: [
+      {
+        vintage: '2022',
+        price: 22,
+        left: 120,
+        isDefault: true,
+      },
+      {
+        vintage: '2023',
+        price: 22,
+        preOrder: 'Mar',
+      },
+    ],
     glass: 'var(--glass-red)',
     cap: 'var(--wine)',
-    releaseRank: 16,
+    releaseDate: '2025-06-18T10:00:00.000Z',
     unlisted: true,
     so2: 21,
     so2Added: true,
@@ -1315,12 +2201,10 @@ export const wines: Wine[] = [
       story:
         'Gornji is the upper terrace above the sea slope at Potomje, cooler and windier than Brijeg. Marija Kos picks it earlier, ferments it in steel on native yeast and gives it a year in large old casks: her lighter, fresher take on Plavac Mali. Fined with egg white before bottling.',
       tags: ['Upper terrace', 'Fined (not vegan)', 'Wild ferment', '21 mg/L total SO₂'],
-      vintages: [
-        { year: '2022', price: 22, info: '€22 · 120 left' },
-        { year: '2023', price: 22, info: 'Pre-order · Mar' },
-      ],
-      defaultVintage: '2022',
-      drinkWindow: { label: 'Best 2024 – 2028', cells: [2, 2, 2, 2, 1, 0, 0, 0] },
+      drinkWindow: {
+        label: 'Best 2024 – 2028',
+        cells: [2, 2, 2, 2, 1, 0, 0, 0],
+      },
       tasting: {
         nose: 'Ripe plum, bay leaf and dried cherry, with carob, thyme and a light smoky note.',
         palate:
@@ -1328,18 +2212,54 @@ export const wines: Wine[] = [
         finish: 'Medium-long and herbal, with bay, cocoa nib and a gentle tannic grip.',
       },
       structure: [
-        { label: 'Body', value: 6, word: 'Medium' },
-        { label: 'Acidity', value: 6, word: 'Fresh' },
-        { label: 'Tannin', value: 5, word: 'Fine' },
-        { label: 'Fruit', value: 7, word: 'Plum' },
-        { label: 'Funk', value: 1, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 6,
+          word: 'Medium',
+        },
+        {
+          label: 'Acidity',
+          value: 6,
+          word: 'Fresh',
+        },
+        {
+          label: 'Tannin',
+          value: 5,
+          word: 'Fine',
+        },
+        {
+          label: 'Fruit',
+          value: 7,
+          word: 'Plum',
+        },
+        {
+          label: 'Funk',
+          value: 1,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '15–16°', decant: '20 min', glass: 'Burgundy' },
+      serve: {
+        temp: '15–16°',
+        decant: '20 min',
+        glass: 'Burgundy',
+      },
       pairings: [
-        { dish: 'Dalmatian pršut & Paški sir', kind: 'Classic' },
-        { dish: 'Grilled tuna, capers & bay', kind: 'Local' },
-        { dish: 'Burgers off the grill', kind: 'Weekend' },
-        { dish: 'Aubergine & tomato bake', kind: 'Veggie' },
+        {
+          dish: 'Dalmatian pršut & Paški sir',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Grilled tuna, capers & bay',
+          kind: 'Local',
+        },
+        {
+          dish: 'Burgers off the grill',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Aubergine & tomato bake',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Gornji, the upper terrace'],
@@ -1367,10 +2287,22 @@ export const wines: Wine[] = [
         facts: '2.4 ha · 3 plots',
       },
       related: [
-        { id: 'plavac-mali-brijeg', why: 'The big brother' },
-        { id: 'opolo-svila', why: 'Same grape, pink' },
-        { id: 'teran-crvena-zemlja', why: 'Another fresh red' },
-        { id: 'crljenak-kastela', why: 'Plavac’s parent grape' },
+        {
+          id: 'plavac-mali-brijeg',
+          why: 'The big brother',
+        },
+        {
+          id: 'opolo-svila',
+          why: 'Same grape, pink',
+        },
+        {
+          id: 'teran-crvena-zemlja',
+          why: 'Another fresh red',
+        },
+        {
+          id: 'crljenak-kastela',
+          why: 'Plavac’s parent grape',
+        },
       ],
     },
   },
@@ -1385,11 +2317,17 @@ export const wines: Wine[] = [
     type: 'Dessert',
     abv: '15%',
     volume: '375 ml',
-    price: 38,
-    left: 40,
+    vintages: [
+      {
+        vintage: null,
+        price: 38,
+        left: 40,
+        isDefault: true,
+      },
+    ],
     glass: 'var(--wine-800)',
     cap: 'var(--olive-300)',
-    releaseRank: 17,
+    releaseDate: '2025-06-11T10:00:00.000Z',
     unlisted: true,
     so2: 25,
     so2Added: true,
@@ -1401,7 +2339,10 @@ export const wines: Wine[] = [
       story:
         '“Strpljenje” means patience. Ante Kovač lays ripe Babić from Gornja ograda on reed mats for three weeks of September sun, presses the raisined grapes and lets them ferment slowly for months. Then seven years in small old barrels. A traditional Dalmatian prošek, not to be confused with Prosecco.',
       tags: ['Sun-dried grapes', 'Vegan', '7 years in barrel', '25 mg/L total SO₂'],
-      drinkWindow: { label: 'Now – 2040 and beyond', cells: [2, 2, 2, 2, 2, 2, 2, 2] },
+      drinkWindow: {
+        label: 'Now – 2040 and beyond',
+        cells: [2, 2, 2, 2, 2, 2, 2, 2],
+      },
       tasting: {
         nose: 'Dried fig, raisin and espresso, with carob, orange marmalade, walnut and a hint of tobacco.',
         palate:
@@ -1409,18 +2350,54 @@ export const wines: Wine[] = [
         finish: 'Very long, with dark chocolate, toasted nuts and dried orange peel. Keeps for weeks once open.',
       },
       structure: [
-        { label: 'Body', value: 9, word: 'Rich' },
-        { label: 'Sweetness', value: 9, word: 'Sweet' },
-        { label: 'Acidity', value: 6, word: 'Fresh' },
-        { label: 'Fruit', value: 9, word: 'Dried' },
-        { label: 'Funk', value: 2, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 9,
+          word: 'Rich',
+        },
+        {
+          label: 'Sweetness',
+          value: 9,
+          word: 'Sweet',
+        },
+        {
+          label: 'Acidity',
+          value: 6,
+          word: 'Fresh',
+        },
+        {
+          label: 'Fruit',
+          value: 9,
+          word: 'Dried',
+        },
+        {
+          label: 'Funk',
+          value: 2,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '12–14°', decant: 'No', glass: 'Small dessert' },
+      serve: {
+        temp: '12–14°',
+        decant: 'No',
+        glass: 'Small dessert',
+      },
       pairings: [
-        { dish: 'Rožata, Dubrovnik custard', kind: 'Classic' },
-        { dish: 'Smokvenjak, dried fig cake', kind: 'Local' },
-        { dish: 'Dark chocolate after dinner', kind: 'Weekend' },
-        { dish: 'Blue cheese & walnuts', kind: 'Cheese' },
+        {
+          dish: 'Rožata, Dubrovnik custard',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Smokvenjak, dried fig cake',
+          kind: 'Local',
+        },
+        {
+          dish: 'Dark chocolate after dinner',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Blue cheese & walnuts',
+          kind: 'Cheese',
+        },
       ],
       vineyard: [
         ['Plot', 'Gornja ograda, the upper walled rows'],
@@ -1449,10 +2426,22 @@ export const wines: Wine[] = [
         facts: '2.9 ha · since 1952',
       },
       related: [
-        { id: 'babic-kamenjar', why: 'Same grape, dry' },
-        { id: 'malvazija-amfora', why: 'Another lesson in patience' },
-        { id: 'plavac-mali-brijeg', why: 'Before the prošek' },
-        { id: 'crljenak-kastela', why: 'For the cheese course' },
+        {
+          id: 'babic-kamenjar',
+          why: 'Same grape, dry',
+        },
+        {
+          id: 'malvazija-amfora',
+          why: 'Another lesson in patience',
+        },
+        {
+          id: 'plavac-mali-brijeg',
+          why: 'Before the prošek',
+        },
+        {
+          id: 'crljenak-kastela',
+          why: 'For the cheese course',
+        },
       ],
     },
   },
@@ -1466,11 +2455,17 @@ export const wines: Wine[] = [
     region: 'Kvarner',
     type: 'Sparkling',
     abv: '12%',
-    price: 26,
-    left: 72,
+    vintages: [
+      {
+        vintage: null,
+        price: 26,
+        left: 72,
+        isDefault: true,
+      },
+    ],
     glass: 'var(--olive-500)',
     cap: 'var(--paper)',
-    releaseRank: 18,
+    releaseDate: '2025-06-04T10:00:00.000Z',
     unlisted: true,
     so2: 8,
     so2Added: true,
@@ -1482,7 +2477,10 @@ export const wines: Wine[] = [
       story:
         '“Pjena mora” means sea foam. Mirela Lučić makes it the traditional way: a base wine of Žlahtina from the walled Gromače terraces, a second fermentation in bottle, thirty months on the lees, riddled by hand and disgorged with no added sugar. Brut nature: just Žlahtina, yeast and time.',
       tags: ['Traditional method', 'Vegan', 'Brut nature, zero dosage', '8 mg/L total SO₂'],
-      drinkWindow: { label: 'Drink 2025 – 2028', cells: [1, 2, 2, 2, 2, 0, 0, 0] },
+      drinkWindow: {
+        label: 'Drink 2025 – 2028',
+        cells: [1, 2, 2, 2, 2, 0, 0, 0],
+      },
       tasting: {
         nose: 'Lemon curd, fresh brioche and sea spray, with white flowers, green apple and toasted almond.',
         palate:
@@ -1490,18 +2488,54 @@ export const wines: Wine[] = [
         finish: 'Long, salty and clean, ending on lemon peel and warm bread crust.',
       },
       structure: [
-        { label: 'Body', value: 4, word: 'Light' },
-        { label: 'Acidity', value: 8, word: 'Crisp' },
-        { label: 'Bubbles', value: 8, word: 'Fine' },
-        { label: 'Fruit', value: 5, word: 'Citrus' },
-        { label: 'Funk', value: 1, word: 'Clean' },
+        {
+          label: 'Body',
+          value: 4,
+          word: 'Light',
+        },
+        {
+          label: 'Acidity',
+          value: 8,
+          word: 'Crisp',
+        },
+        {
+          label: 'Bubbles',
+          value: 8,
+          word: 'Fine',
+        },
+        {
+          label: 'Fruit',
+          value: 5,
+          word: 'Citrus',
+        },
+        {
+          label: 'Funk',
+          value: 1,
+          word: 'Clean',
+        },
       ],
-      serve: { temp: '7–9°', decant: 'No', glass: 'Flute or tulip' },
+      serve: {
+        temp: '7–9°',
+        decant: 'No',
+        glass: 'Flute or tulip',
+      },
       pairings: [
-        { dish: 'Ston oysters, just opened', kind: 'Classic' },
-        { dish: 'Krk sheep’s cheese & olives', kind: 'Local' },
-        { dish: 'Fried squid & chips', kind: 'Weekend' },
-        { dish: 'Fried courgette flowers', kind: 'Veggie' },
+        {
+          dish: 'Ston oysters, just opened',
+          kind: 'Classic',
+        },
+        {
+          dish: 'Krk sheep’s cheese & olives',
+          kind: 'Local',
+        },
+        {
+          dish: 'Fried squid & chips',
+          kind: 'Weekend',
+        },
+        {
+          dish: 'Fried courgette flowers',
+          kind: 'Veggie',
+        },
       ],
       vineyard: [
         ['Plot', 'Gromače, the walled terraces'],
@@ -1531,10 +2565,22 @@ export const wines: Wine[] = [
         facts: '2.2 ha · 3 plots',
       },
       related: [
-        { id: 'grasevina-pet-nat-pjena', why: 'Wilder bubbles, crown cap' },
-        { id: 'zlahtina-bura', why: 'Same field, no bubbles' },
-        { id: 'posip-kamen', why: 'Island white with weight' },
-        { id: 'oblica-island-blend', why: 'A gentle island oil' },
+        {
+          id: 'grasevina-pet-nat-pjena',
+          why: 'Wilder bubbles, crown cap',
+        },
+        {
+          id: 'zlahtina-bura',
+          why: 'Same field, no bubbles',
+        },
+        {
+          id: 'posip-kamen',
+          why: 'Island white with weight',
+        },
+        {
+          id: 'oblica-island-blend',
+          why: 'A gentle island oil',
+        },
       ],
     },
   },

@@ -4,6 +4,6 @@ import * as t from '../db/schema.ts'
 import { toClubPlan } from '../lib/mappers.ts'
 
 export async function findClubPlans(db: DbOrTx) {
-  const rows = await db.select().from(t.clubPlans).orderBy(asc(t.clubPlans.position))
+  const rows = await db.select().from(t.clubPlans).orderBy(asc(t.clubPlans.bottles))
   return rows.map(toClubPlan)
 }
