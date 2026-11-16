@@ -30,6 +30,14 @@ yarn db:seed        # replaces catalog content, keeps accounts and orders
 yarn db:studio      # Drizzle Studio
 ```
 
+## CI
+
+GitHub Actions runs on every pull request and push to `main`:
+
+- `.github/workflows/ci.yml`: Biome and typecheck; tests against a fresh Postgres 17 after checking that `src/db/schema.ts` has no changes without a migration, migrating and seeding; build.
+- `.github/workflows/claude-code-review.yml`: Claude reviews each non-draft PR following `.claude/agents/code-reviewer.md` and comments on it. Needs the `CLAUDE_CODE_OAUTH_TOKEN` repository secret.
+- `.github/dependabot.yml`: weekly grouped updates for npm packages and GitHub Actions.
+
 ## Endpoints
 
 Everything sits under `/api/v1`, except `/health` and `/webhooks/stripe`. Interactive docs are at `/docs` (OpenAPI JSON at `/docs/json`). Pictures are served from `/assets/...`, and image fields in responses hold those paths.
@@ -49,7 +57,7 @@ Everything sits under `/api/v1`, except `/health` and `/webhooks/stripe`. Intera
 | GET          | `/quiz`                           | `{ questions, profiles }`                                                                                  |
 | POST         | `/quiz/recommendations`           | `{ answers: number[] }` → `{ top, profile, wines }`                                                        |
 | GET          | `/cart`                           | Priced cart: `{ lines, saved, promo, giftNote, totals }`                                                   |
-| GET          | `/cart/shipping-options`          | Standard, Saturday and pickup prices for this cart                                                         |
+| GET          | `/cart/shipping-options`          | Standard, Saturday and pickup: each option's `price` and the cart's `total` with it                        |
 | POST         | `/cart/lines`                     | `{ id, qty?, option? }`: id of a wine vintage, oil size, tasting set or plan; option is the club frequency |
 | PATCH        | `/cart/lines/:key`                | `{ qty }`                                                                                                  |
 | DELETE       | `/cart/lines/:key`                |                                                                                                            |

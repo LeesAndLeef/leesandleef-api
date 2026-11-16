@@ -98,6 +98,9 @@ const shipPrice: Record<ShipMethod, (shipping: number) => number> = {
   pick: () => 0,
 }
 
-export function shippingOptions(totals: Pick<Totals, 'shipping'>): ShipOption[] {
-  return SHIP_METHODS.map((id) => ({ id, ...SHIP_DETAILS[id], price: shipPrice[id](totals.shipping) }))
+export function shippingOptions({ shipping, total }: Pick<Totals, 'shipping' | 'total'>): ShipOption[] {
+  return SHIP_METHODS.map((id) => {
+    const price = shipPrice[id](shipping)
+    return { id, ...SHIP_DETAILS[id], price, total: roundMoney(total - shipping + price) }
+  })
 }

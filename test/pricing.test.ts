@@ -61,11 +61,11 @@ describe('computeTotals', () => {
 })
 
 describe('shippingOptions', () => {
-  it('adds the Saturday surcharge and makes pickup free', () => {
-    expect(shippingOptions({ shipping: 9.9 }).map((o) => [o.id, o.price])).toEqual([
-      ['std', 9.9],
-      ['sat', 18.9],
-      ['pick', 0],
+  it('adds the Saturday surcharge, makes pickup free and prices the cart with each option', () => {
+    expect(shippingOptions({ shipping: 9.9, total: 35.9 }).map((o) => [o.id, o.price, o.total])).toEqual([
+      ['std', 9.9, 35.9],
+      ['sat', 18.9, 44.9],
+      ['pick', 0, 26],
     ])
   })
 })

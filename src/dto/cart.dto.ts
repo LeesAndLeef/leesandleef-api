@@ -50,6 +50,7 @@ export const shipOptionSchema = z.object({
   name: z.string(),
   desc: z.string(),
   price: z.number(),
+  total: z.number(),
 })
 
 export const keyParams = z.object({ key: z.string().min(1).max(100) })
