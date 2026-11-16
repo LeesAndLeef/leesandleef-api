@@ -10,7 +10,7 @@ import type { CartState } from '../types/cart.ts'
 import type { Deps } from '../types/deps.ts'
 import type { PaymentInstructions } from '../types/order.ts'
 import { conflict, HttpError, notFound, unprocessable } from '../utils/errors.ts'
-import { roundMoney, toCents } from '../utils/money.ts'
+import { toCents } from '../utils/money.ts'
 import { addressColumns, requireUser } from './account.service.ts'
 import { emptied, priceCart, settleCart } from './cart.service.ts'
 import { sendOrderConfirmation } from './email.service.ts'
@@ -44,7 +44,6 @@ function createOrder(db: Db, userId: string, state: CartState, input: PlaceOrder
 
     const delivery = shippingOptions(cart.totals).find((option) => option.id === input.ship)
     if (!delivery) throw unprocessable(`Unknown delivery option ${input.ship}`)
-    const total = roundMoney(cart.totals.total - cart.totals.shipping + delivery.price)
     const phone = input.details.phone || null
 
     const order = await repo.insertOrder(
@@ -66,7 +65,7 @@ function createOrder(db: Db, userId: string, state: CartState, input: PlaceOrder
         mixDiscount: cart.totals.mixDiscount,
         promoDiscount: cart.totals.promoDiscount,
         shipping: delivery.price,
-        total,
+        total: delivery.total,
       },
       cart.lines.map((line, position) => ({
         position,
