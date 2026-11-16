@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!dist", "!.yarn", "!drizzle", "!public"]
+    "includes": ["**", "!dist", "!.yarn", "!drizzle", "!public", "!.claude"]
   },
   "formatter": {
     "enabled": true,

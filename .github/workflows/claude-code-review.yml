@@ -1,0 +1,52 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: claude-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: |
+          corepack enable
+          corepack prepare yarn@4.10.3 --activate
+          yarn install --immutable
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Review this pull request. Read `.claude/agents/code-reviewer.md` and follow its instructions exactly:
+            what to look for, the checks to run, the rules and the report format.
+            The target is this PR: use `gh pr view` for its description and `gh pr diff` for the change.
+            The PR branch is already checked out in the current working directory, and dependencies are installed.
+            There is no database here, so the database tests skip; the CI workflow runs them.
+
+            Post your results on GitHub instead of replying here:
+            - For each finding tied to a line, use `mcp__github_inline_comment__create_inline_comment` with `confirmed: true`.
+            - Post the full report (verdict, findings, check/typecheck/test/build results) once with `gh pr comment`.
+            Don't post anything else.
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(yarn check),Bash(yarn typecheck),Bash(yarn test),Bash(yarn build),Bash(git log:*),Bash(git show:*)"
