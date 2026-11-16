@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.4",
-    "@types/node": "^22",
+    "@types/node": "^26",
     "@types/pg": "^8.23.1",
     "drizzle-kit": "^0.31.11",
     "openapi-types": "^12.1.3",
